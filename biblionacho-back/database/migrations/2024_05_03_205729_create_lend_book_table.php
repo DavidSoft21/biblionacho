@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('isbn',10);
             $table->text('observations',100)->nullable();
+            $table->date('deadline');
             $table->boolean('returned')->default(false);
             $table->unsignedBigInteger('user_id'); 
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
