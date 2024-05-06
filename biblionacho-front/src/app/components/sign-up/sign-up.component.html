@@ -1,0 +1,69 @@
+<section class="row py-5">
+  <div class="col-12 col-md-6 col-lg-4 offset-md-3 offset-lg-4">
+    <div class="card">
+      <div class="card-body">
+        <h2 class="text-center my-2">Sing Up</h2>
+        <!-- Errors -->
+        <div *ngIf="errors?.first_name" class="alert alert-danger" role="alert">
+          {{ errors.first_name  }}
+        </div>  
+
+        <div *ngIf="errors?.last_name" class="alert alert-danger" role="alert">
+          {{ errors.last_name }}
+        </div>  
+
+        <div *ngIf="errors?.email" class="alert alert-danger" role="alert">
+          {{ errors.email  }}
+        </div>  
+
+        <div *ngIf="errors?.password" class="alert alert-danger" role="alert">
+          {{ errors.password  }}
+        </div>  
+
+        <!-- Register Form -->
+        <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
+          <!-- Input First Name -->
+          <div class="mb-3">
+            <label for="inputFirstName" class="form-label">First Name</label>
+            <input type="text" class="form-control" id="inputFirstName" formControlName="first_name" />
+          </div>
+
+          <!-- Input Last Name -->
+          <div class="mb-3">
+            <label for="inputLastName" class="form-label">Last Name</label>
+            <input type="text" class="form-control" id="inputLastName" formControlName="last_name" />
+          </div>
+
+          <!-- Input Email -->
+          <div class="mb-3">
+            <label for="inputEmail" class="form-label">Email address</label>
+            <input type="email" class="form-control" id="inputEmail"  formControlName="email"/>
+          </div>
+
+          <!-- Input Password -->
+          <div class="mb-3">
+            <label for="inputPassword" class="form-label">Password</label>
+            <input type="password" class="form-control" id="inputPassword"  formControlName="password">
+          </div>
+
+          <!-- Input Password Confirmation -->
+          <div class="mb-3">
+            <label for="inputPasswordConfirm" class="form-label"
+              >Password Confirmation</label
+            >
+            <input
+              type="password"
+              class="form-control"
+              id="inputPasswordConfirm"
+              formControlName="password_confirmation"
+            />
+          </div>
+
+          <button type="submit" class="btn btn-lg w-100 mt-1 mb-4 btn-primary">Sign Up</button>
+
+          <a routerLink="/login" class="d-block mb-4 mt-1 text-center ">I Already have an Account</a>
+        </form>
+      </div>
+    </div>
+  </div>
+</section>
