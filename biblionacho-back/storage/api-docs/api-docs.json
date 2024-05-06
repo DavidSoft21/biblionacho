@@ -351,14 +351,1941 @@
                     }
                 ]
             }
+        },
+        "/books/index": {
+            "get": {
+                "tags": [
+                    "Books"
+                ],
+                "summary": "Index book",
+                "description": "Show books",
+                "operationId": "IndexBook",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Ok 200"
+                                        },
+                                        "book": {
+                                            "$ref": "#/components/schemas/Book"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Server Error"
+                                        },
+                                        "errors": {
+                                            "type": "object",
+                                            "example": {
+                                                "errors": [
+                                                    "Internal server error!"
+                                                ]
+                                            }
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/books/store": {
+            "post": {
+                "tags": [
+                    "Books"
+                ],
+                "summary": "Create books for admin",
+                "description": "Create books",
+                "operationId": "CreateBook",
+                "parameters": [
+                    {
+                        "name": "Authorization",
+                        "in": "header",
+                        "description": "Bearer token",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "default": "Bearer id|YOUR_ACCESS_TOKEN_HERE"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "description": "Book creation",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "isbn",
+                                    "title",
+                                    "author",
+                                    "editorial",
+                                    "edition",
+                                    "year",
+                                    "language",
+                                    "pages"
+                                ],
+                                "properties": {
+                                    "isbn": {
+                                        "type": "string",
+                                        "example": "yI47e2b87c"
+                                    },
+                                    "title": {
+                                        "type": "string",
+                                        "example": "The Picture of Dorian Gray"
+                                    },
+                                    "author": {
+                                        "type": "string",
+                                        "example": "Oscar Wilde"
+                                    },
+                                    "editorial": {
+                                        "type": "string",
+                                        "example": "Lippincott's Monthly Magazine."
+                                    },
+                                    "edition": {
+                                        "type": "string",
+                                        "example": "25"
+                                    },
+                                    "year": {
+                                        "type": "string",
+                                        "example": "1890"
+                                    },
+                                    "language": {
+                                        "type": "string",
+                                        "example": "en"
+                                    },
+                                    "pages": {
+                                        "type": "string",
+                                        "example": "300"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Successfully registered",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Successfully registered"
+                                        },
+                                        "book": {
+                                            "$ref": "#/components/schemas/Book"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Validation Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Validation Error"
+                                        },
+                                        "errors": {
+                                            "type": "object",
+                                            "example": {
+                                                "title": [
+                                                    "The title field is required."
+                                                ]
+                                            }
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Server Error"
+                                        },
+                                        "errors": {
+                                            "type": "object",
+                                            "example": {
+                                                "errors": [
+                                                    "Internal server error!"
+                                                ]
+                                            }
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/books/show/{id}": {
+            "get": {
+                "tags": [
+                    "Books"
+                ],
+                "summary": "Show book",
+                "description": "Show a book by ID",
+                "operationId": "ShowBook",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "User ID",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Ok 200"
+                                        },
+                                        "book": {
+                                            "$ref": "#/components/schemas/Book"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Validation Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Validation Error"
+                                        },
+                                        "errors": {
+                                            "type": "object",
+                                            "example": {
+                                                "id": [
+                                                    "The id is required."
+                                                ]
+                                            }
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Server Error"
+                                        },
+                                        "errors": {
+                                            "type": "object",
+                                            "example": {
+                                                "errors": [
+                                                    "Internal server error!"
+                                                ]
+                                            }
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "NotFound"
+                                        },
+                                        "errors": {
+                                            "type": "object",
+                                            "example": {
+                                                "errors": [
+                                                    "The Book with the provided ID was not found."
+                                                ]
+                                            }
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/books/update/{id}": {
+            "put": {
+                "tags": [
+                    "Books"
+                ],
+                "summary": "Update books for admin",
+                "description": "Update books",
+                "operationId": "UpdateBook",
+                "parameters": [
+                    {
+                        "name": "Authorization",
+                        "in": "header",
+                        "description": "Bearer token",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "default": "Bearer id|YOUR_ACCESS_TOKEN_HERE"
+                        }
+                    },
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Book ID",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "description": "User update",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "isbn",
+                                    "title",
+                                    "author",
+                                    "editorial",
+                                    "edition",
+                                    "year",
+                                    "language",
+                                    "pages"
+                                ],
+                                "properties": {
+                                    "isbn": {
+                                        "type": "string",
+                                        "example": "yI47e2b87c"
+                                    },
+                                    "title": {
+                                        "type": "string",
+                                        "example": "The Picture of Dorian Gray"
+                                    },
+                                    "author": {
+                                        "type": "string",
+                                        "example": "Oscar Wilde"
+                                    },
+                                    "editorial": {
+                                        "type": "string",
+                                        "example": "Lippincott's Monthly Magazine."
+                                    },
+                                    "edition": {
+                                        "type": "string",
+                                        "example": "25"
+                                    },
+                                    "year": {
+                                        "type": "string",
+                                        "example": "1890"
+                                    },
+                                    "language": {
+                                        "type": "string",
+                                        "example": "en"
+                                    },
+                                    "pages": {
+                                        "type": "string",
+                                        "example": "300"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Successfully updated",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Successfully updated"
+                                        },
+                                        "book": {
+                                            "$ref": "#/components/schemas/Book"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Validation Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Validation Error"
+                                        },
+                                        "errors": {
+                                            "type": "object",
+                                            "example": {
+                                                "title": [
+                                                    "The title field is required."
+                                                ]
+                                            }
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Not Found"
+                                        },
+                                        "errors": {
+                                            "type": "object",
+                                            "example": {
+                                                "errors": [
+                                                    "The Book with the provided ID was not found."
+                                                ]
+                                            }
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Server Error"
+                                        },
+                                        "errors": {
+                                            "type": "object",
+                                            "example": {
+                                                "errors": [
+                                                    "Internal server error!"
+                                                ]
+                                            }
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/books/destroy/{id}": {
+            "delete": {
+                "tags": [
+                    "Books"
+                ],
+                "summary": "Delete Book",
+                "description": "Delete a book by ID",
+                "operationId": "BookDelete",
+                "parameters": [
+                    {
+                        "name": "Authorization",
+                        "in": "header",
+                        "description": "Bearer token",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "default": "Bearer YOUR_ACCESS_TOKEN_HERE"
+                        }
+                    },
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Book ID",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successfully deleted",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Successfully deleted"
+                                        },
+                                        "book": {
+                                            "$ref": "#/components/schemas/Book"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Validation Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Validation Error"
+                                        },
+                                        "errors": {
+                                            "type": "object",
+                                            "example": {
+                                                "id": [
+                                                    "The id is required."
+                                                ]
+                                            }
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Server Error"
+                                        },
+                                        "errors": {
+                                            "type": "object",
+                                            "example": {
+                                                "errors": [
+                                                    "Internal server error!"
+                                                ]
+                                            }
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "NotFound"
+                                        },
+                                        "errors": {
+                                            "type": "object",
+                                            "example": {
+                                                "errors": [
+                                                    "The book with the provided ID was not found."
+                                                ]
+                                            }
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/lendbooks/index": {
+            "get": {
+                "tags": [
+                    "LendBooks"
+                ],
+                "summary": "Index Lend Books",
+                "description": "Show all lend books",
+                "operationId": "IndexLendBooks",
+                "parameters": [
+                    {
+                        "name": "Authorization",
+                        "in": "header",
+                        "description": "Bearer token",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "default": "Bearer id|YOUR_ACCESS_TOKEN_HERE"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Ok 200"
+                                        },
+                                        "lendbooks": {
+                                            "type": "array",
+                                            "items": {
+                                                "$ref": "#/components/schemas/LendBook"
+                                            }
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Server Error"
+                                        },
+                                        "errors": {
+                                            "type": "object",
+                                            "example": {
+                                                "errors": [
+                                                    "Internal server error!"
+                                                ]
+                                            }
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/lendbooks/store": {
+            "post": {
+                "tags": [
+                    "LendBooks"
+                ],
+                "summary": "Create Lend Books",
+                "description": "Create a lend book",
+                "operationId": "CreateLendBook",
+                "parameters": [
+                    {
+                        "name": "Authorization",
+                        "in": "header",
+                        "description": "Bearer token",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "default": "Bearer id|YOUR_ACCESS_TOKEN_HERE"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "description": "Lend Book data",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "isbn",
+                                    "observations",
+                                    "deadline",
+                                    "returned",
+                                    "user_id",
+                                    "book_id"
+                                ],
+                                "properties": {
+                                    "isbn": {
+                                        "type": "string",
+                                        "example": "yI47e2b87c"
+                                    },
+                                    "observations": {
+                                        "type": "string",
+                                        "example": ""
+                                    },
+                                    "deadline": {
+                                        "type": "string",
+                                        "format": "date",
+                                        "example": "10-05-2024"
+                                    },
+                                    "returned": {
+                                        "type": "boolean",
+                                        "example": "false"
+                                    },
+                                    "user_id": {
+                                        "type": "integer",
+                                        "example": "1"
+                                    },
+                                    "book_id": {
+                                        "type": "integer",
+                                        "example": "1"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Successfully registered",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Successfully registered"
+                                        },
+                                        "lendbook": {
+                                            "$ref": "#/components/schemas/LendBook"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Validation Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Validation Error"
+                                        },
+                                        "errors": {
+                                            "type": "object",
+                                            "example": {
+                                                "title": [
+                                                    "The isbn field is required."
+                                                ]
+                                            }
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Server Error"
+                                        },
+                                        "errors": {
+                                            "type": "object",
+                                            "example": {
+                                                "errors": [
+                                                    "Internal server error!"
+                                                ]
+                                            }
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/lendbooks/show/{id}": {
+            "get": {
+                "tags": [
+                    "LendBooks"
+                ],
+                "summary": "Show Lend Book",
+                "description": "Show a lend of book by ID",
+                "operationId": "ShowLendBook",
+                "parameters": [
+                    {
+                        "name": "Authorization",
+                        "in": "header",
+                        "description": "Bearer token",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "default": "Bearer id|YOUR_ACCESS_TOKEN_HERE"
+                        }
+                    },
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Lend of Book ID",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Ok 200"
+                                        },
+                                        "lendbook": {
+                                            "$ref": "#/components/schemas/LendBook"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Validation Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Validation Error"
+                                        },
+                                        "errors": {
+                                            "type": "object",
+                                            "example": {
+                                                "id": [
+                                                    "The id is required."
+                                                ]
+                                            }
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Server Error"
+                                        },
+                                        "errors": {
+                                            "type": "object",
+                                            "example": {
+                                                "errors": [
+                                                    "Internal server error!"
+                                                ]
+                                            }
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "NotFound"
+                                        },
+                                        "errors": {
+                                            "type": "object",
+                                            "example": {
+                                                "errors": [
+                                                    "The Lend of Book with the provided ID was not found."
+                                                ]
+                                            }
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/lendbooks/update/{id}": {
+            "put": {
+                "tags": [
+                    "LendBooks"
+                ],
+                "summary": "Update lend of book for admin",
+                "description": "Update lend of books",
+                "operationId": "UpdateLendBook",
+                "parameters": [
+                    {
+                        "name": "Authorization",
+                        "in": "header",
+                        "description": "Bearer token",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "default": "Bearer id|YOUR_ACCESS_TOKEN_HERE"
+                        }
+                    },
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Lend of Book ID",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "description": "Lend of Book update",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "isbn",
+                                    "observations",
+                                    "deadline",
+                                    "returned",
+                                    "user_id",
+                                    "book_id"
+                                ],
+                                "properties": {
+                                    "isbn": {
+                                        "type": "string",
+                                        "example": "yI47e2b87c"
+                                    },
+                                    "observations": {
+                                        "type": "string",
+                                        "example": ""
+                                    },
+                                    "deadline": {
+                                        "type": "string",
+                                        "format": "date",
+                                        "example": "10-05-2024"
+                                    },
+                                    "returned": {
+                                        "type": "boolean",
+                                        "example": "false"
+                                    },
+                                    "user_id": {
+                                        "type": "integer",
+                                        "example": "1"
+                                    },
+                                    "book_id": {
+                                        "type": "integer",
+                                        "example": "1"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Successfully updated",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Successfully updated"
+                                        },
+                                        "lendbook": {
+                                            "$ref": "#/components/schemas/LendBook"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Validation Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Validation Error"
+                                        },
+                                        "errors": {
+                                            "type": "object",
+                                            "example": {
+                                                "title": [
+                                                    "The isbn field is required."
+                                                ]
+                                            }
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Not Found"
+                                        },
+                                        "errors": {
+                                            "type": "object",
+                                            "example": {
+                                                "errors": [
+                                                    "The Lend of Book with the provided ID was not found."
+                                                ]
+                                            }
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Server Error"
+                                        },
+                                        "errors": {
+                                            "type": "object",
+                                            "example": {
+                                                "errors": [
+                                                    "Internal server error!"
+                                                ]
+                                            }
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/lendbooks/destroy/{id}": {
+            "delete": {
+                "tags": [
+                    "LendBooks"
+                ],
+                "summary": "Delete Lend Book",
+                "description": "Delete a lend of Book by ID",
+                "operationId": "LendBookDelete",
+                "parameters": [
+                    {
+                        "name": "Authorization",
+                        "in": "header",
+                        "description": "Bearer token",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "default": "Bearer YOUR_ACCESS_TOKEN_HERE"
+                        }
+                    },
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Lend of Book ID",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successfully deleted",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Successfully deleted"
+                                        },
+                                        "lendbook": {
+                                            "$ref": "#/components/schemas/LendBook"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Validation Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Validation Error"
+                                        },
+                                        "errors": {
+                                            "type": "object",
+                                            "example": {
+                                                "id": [
+                                                    "The id is required."
+                                                ]
+                                            }
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Server Error"
+                                        },
+                                        "errors": {
+                                            "type": "object",
+                                            "example": {
+                                                "errors": [
+                                                    "Internal server error!"
+                                                ]
+                                            }
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "NotFound"
+                                        },
+                                        "errors": {
+                                            "type": "object",
+                                            "example": {
+                                                "errors": [
+                                                    "The book with the provided ID was not found."
+                                                ]
+                                            }
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/users/index": {
+            "get": {
+                "tags": [
+                    "Users"
+                ],
+                "summary": "Index user",
+                "description": "Show users",
+                "operationId": "IndexUser",
+                "parameters": [
+                    {
+                        "name": "Authorization",
+                        "in": "header",
+                        "description": "Bearer token",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "default": "Bearer YOUR_ACCESS_TOKEN_HERE"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Ok 200"
+                                        },
+                                        "user": {
+                                            "$ref": "#/components/schemas/User"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Server Error"
+                                        },
+                                        "errors": {
+                                            "type": "object",
+                                            "example": {
+                                                "errors": [
+                                                    "Internal server error!"
+                                                ]
+                                            }
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/users/store": {
+            "post": {
+                "tags": [
+                    "Users"
+                ],
+                "summary": "Create users for admin",
+                "description": "Create users",
+                "operationId": "Create",
+                "parameters": [
+                    {
+                        "name": "Authorization",
+                        "in": "header",
+                        "description": "Bearer token",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "default": "Bearer id|YOUR_ACCESS_TOKEN_HERE"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "description": "User creation",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "first_name",
+                                    "last_name",
+                                    "email",
+                                    "password",
+                                    "password_confirmation"
+                                ],
+                                "properties": {
+                                    "first_name": {
+                                        "type": "string",
+                                        "example": "Alfredo"
+                                    },
+                                    "last_name": {
+                                        "type": "string",
+                                        "example": "Mercurio"
+                                    },
+                                    "email": {
+                                        "type": "string",
+                                        "format": "email",
+                                        "example": "alfred@biblionacho.com"
+                                    },
+                                    "password": {
+                                        "type": "string",
+                                        "format": "password",
+                                        "example": "password"
+                                    },
+                                    "password_confirmation": {
+                                        "type": "string",
+                                        "format": "password",
+                                        "example": "password"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Successfully registered",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Successfully registered"
+                                        },
+                                        "user": {
+                                            "$ref": "#/components/schemas/User"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Validation Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Validation Error"
+                                        },
+                                        "errors": {
+                                            "type": "object",
+                                            "example": {
+                                                "email": [
+                                                    "The email field is required."
+                                                ]
+                                            }
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Server Error"
+                                        },
+                                        "errors": {
+                                            "type": "object",
+                                            "example": {
+                                                "errors": [
+                                                    "Internal server error!"
+                                                ]
+                                            }
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/users/show/{id}": {
+            "get": {
+                "tags": [
+                    "Users"
+                ],
+                "summary": "Show user",
+                "description": "Show a user by ID",
+                "operationId": "ShowUser",
+                "parameters": [
+                    {
+                        "name": "Authorization",
+                        "in": "header",
+                        "description": "Bearer token",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "default": "Bearer YOUR_ACCESS_TOKEN_HERE"
+                        }
+                    },
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "User ID",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Ok 200"
+                                        },
+                                        "user": {
+                                            "$ref": "#/components/schemas/User"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Validation Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Validation Error"
+                                        },
+                                        "errors": {
+                                            "type": "object",
+                                            "example": {
+                                                "id": [
+                                                    "The id is required."
+                                                ]
+                                            }
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Server Error"
+                                        },
+                                        "errors": {
+                                            "type": "object",
+                                            "example": {
+                                                "errors": [
+                                                    "Internal server error!"
+                                                ]
+                                            }
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "NotFound"
+                                        },
+                                        "errors": {
+                                            "type": "object",
+                                            "example": {
+                                                "errors": [
+                                                    "The user with the provided ID was not found."
+                                                ]
+                                            }
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/users/update/{id}": {
+            "put": {
+                "tags": [
+                    "Users"
+                ],
+                "summary": "Update users for admin",
+                "description": "Update users",
+                "operationId": "Update",
+                "parameters": [
+                    {
+                        "name": "Authorization",
+                        "in": "header",
+                        "description": "Bearer token",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "default": "Bearer id|YOUR_ACCESS_TOKEN_HERE"
+                        }
+                    },
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "User ID",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "description": "User update",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "first_name",
+                                    "last_name",
+                                    "email",
+                                    "password",
+                                    "password_confirmation"
+                                ],
+                                "properties": {
+                                    "first_name": {
+                                        "type": "string",
+                                        "example": "Alfredo"
+                                    },
+                                    "last_name": {
+                                        "type": "string",
+                                        "example": "Mercurio"
+                                    },
+                                    "email": {
+                                        "type": "string",
+                                        "format": "email",
+                                        "example": "alfred@biblionacho.com"
+                                    },
+                                    "password": {
+                                        "type": "string",
+                                        "format": "password",
+                                        "example": "password"
+                                    },
+                                    "password_confirmation": {
+                                        "type": "string",
+                                        "format": "password",
+                                        "example": "password"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Successfully updated",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Successfully updated"
+                                        },
+                                        "user": {
+                                            "$ref": "#/components/schemas/User"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Validation Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Validation Error"
+                                        },
+                                        "errors": {
+                                            "type": "object",
+                                            "example": {
+                                                "email": [
+                                                    "The email field is required."
+                                                ]
+                                            }
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Not Found"
+                                        },
+                                        "errors": {
+                                            "type": "object",
+                                            "example": {
+                                                "errors": [
+                                                    "The User with the provided ID was not found."
+                                                ]
+                                            }
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Server Error"
+                                        },
+                                        "errors": {
+                                            "type": "object",
+                                            "example": {
+                                                "errors": [
+                                                    "Internal server error!"
+                                                ]
+                                            }
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/users/destroy/{id}": {
+            "delete": {
+                "tags": [
+                    "Users"
+                ],
+                "summary": "Delete user",
+                "description": "Delete a user by ID",
+                "operationId": "DeleteUser",
+                "parameters": [
+                    {
+                        "name": "Authorization",
+                        "in": "header",
+                        "description": "Bearer token",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "default": "Bearer YOUR_ACCESS_TOKEN_HERE"
+                        }
+                    },
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "User ID",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successfully deleted",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Successfully deleted"
+                                        },
+                                        "user": {
+                                            "$ref": "#/components/schemas/User"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Validation Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Validation Error"
+                                        },
+                                        "errors": {
+                                            "type": "object",
+                                            "example": {
+                                                "id": [
+                                                    "The id is required."
+                                                ]
+                                            }
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Server Error"
+                                        },
+                                        "errors": {
+                                            "type": "object",
+                                            "example": {
+                                                "errors": [
+                                                    "Internal server error!"
+                                                ]
+                                            }
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Not Found"
+                                        },
+                                        "errors": {
+                                            "type": "object",
+                                            "example": {
+                                                "errors": [
+                                                    "The user with the provided ID was not found."
+                                                ]
+                                            }
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
         }
     },
     "components": {
         "schemas": {
             "User": {
                 "required": [
+                    "first_name",
+                    "last_name",
                     "email",
-                    "password"
+                    "password",
+                    "password_confirmation"
                 ],
                 "properties": {
                     "email": {
@@ -370,6 +2297,120 @@
                         "description": "The user's password",
                         "type": "string",
                         "example": "biblionacho"
+                    },
+                    "password_confirmation": {
+                        "description": "The user's password confirmation",
+                        "type": "string",
+                        "example": "biblionacho"
+                    },
+                    "first_name": {
+                        "description": "The user's name",
+                        "type": "string",
+                        "example": "Benjamin"
+                    },
+                    "last_name": {
+                        "description": "The user's last_name",
+                        "type": "string",
+                        "example": "Franklin"
+                    }
+                },
+                "type": "object"
+            },
+            "Book": {
+                "required": [
+                    "isbn",
+                    "title",
+                    "author",
+                    "editorial",
+                    "edition",
+                    "year",
+                    "language",
+                    "pages"
+                ],
+                "properties": {
+                    "isbn": {
+                        "description": "ISBN of the book",
+                        "type": "string",
+                        "example": "yI47e2b87c"
+                    },
+                    "title": {
+                        "description": "Title of the book",
+                        "type": "string",
+                        "example": "The Picture of Dorian Gray"
+                    },
+                    "author": {
+                        "description": "Author of the book",
+                        "type": "string",
+                        "example": "Oscar Wilde"
+                    },
+                    "editorial": {
+                        "description": "Editorial of the book",
+                        "type": "string",
+                        "example": "Lippincott's Monthly Magazine."
+                    },
+                    "edition": {
+                        "description": "Edition of the book",
+                        "type": "string",
+                        "example": "25"
+                    },
+                    "year": {
+                        "description": "Year of the book",
+                        "type": "string",
+                        "example": "1890"
+                    },
+                    "language": {
+                        "description": "Language of the book",
+                        "type": "string",
+                        "example": "en"
+                    },
+                    "pages": {
+                        "description": "Pages of the book",
+                        "type": "string",
+                        "example": "300"
+                    }
+                },
+                "type": "object"
+            },
+            "LendBook": {
+                "required": [
+                    "isbn",
+                    "observations",
+                    "deadline",
+                    "returned",
+                    "user_id",
+                    "book_id"
+                ],
+                "properties": {
+                    "isbn": {
+                        "description": "ISBN of the lend book",
+                        "type": "string",
+                        "example": "yI47e2b87c"
+                    },
+                    "observations": {
+                        "description": "Observations of the lend book",
+                        "type": "string",
+                        "example": ""
+                    },
+                    "deadline": {
+                        "description": "Deadline of the lend book",
+                        "type": "string",
+                        "format": "date",
+                        "example": "10-05-2024"
+                    },
+                    "returned": {
+                        "description": "Returned of the lend book",
+                        "type": "boolean",
+                        "example": false
+                    },
+                    "user_id": {
+                        "description": "User ID of the lend book",
+                        "type": "integer",
+                        "example": 1
+                    },
+                    "book_id": {
+                        "description": "Book ID of the lend book",
+                        "type": "integer",
+                        "example": 1
                     }
                 },
                 "type": "object"

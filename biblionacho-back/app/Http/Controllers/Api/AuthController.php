@@ -5,8 +5,8 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Http\JsonResponse;
-use App\Http\Requests\Api\LoginRequest;
-use App\Http\Requests\Api\RegisterRequest;
+use App\Http\Requests\Api\Auth\LoginRequest;
+use App\Http\Requests\Api\Auth\RegisterRequest;
 use Illuminate\Support\Facades\Auth;
 use App\Models\User;
 
@@ -26,12 +26,40 @@ class AuthController extends Controller
     /**
      * @OA\Schema(
      *   schema="User",
-     *   required={"email", "password"},
+     *   required={"first_name","last_name","email", "password", "password_confirmation"},
      *   @OA\Property(
      *     property="email",
      *     type="string",
      *     description="The user's email",
      *     example="admin@biblionacho.com"
+     *   ),
+     *
+     *   @OA\Property(
+     *     property="password",
+     *     type="string",
+     *     description="The user's password",
+     *     example="biblionacho"
+     *   ),
+     * 
+     *   @OA\Property(
+     *     property="password_confirmation",
+     *     type="string",
+     *     description="The user's password confirmation",
+     *     example="biblionacho"
+     *   ),
+     * 
+     * @OA\Property(
+     *     property="first_name",
+     *     type="string",
+     *     description="The user's name",
+     *     example="Benjamin"
+     *   ),
+     * 
+     * @OA\Property(
+     *     property="last_name",
+     *     type="string",
+     *     description="The user's last_name",
+     *     example="Franklin"
      *   ),
      * 
      *   @OA\RequestBody(
@@ -42,13 +70,6 @@ class AuthController extends Controller
      *       @OA\Property(property="password", type="string", example="biblionacho")
      *     )
      *   ),
-     * 
-     *   @OA\Property(
-     *     property="password",
-     *     type="string",
-     *     description="The user's password",
-     *     example="biblionacho"
-     *   )
      * )
      *
      * @OA\Post(

@@ -1,0 +1,450 @@
+{
+    "clientName": "Thunder Client",
+    "collectionName": "Biblionacho",
+    "collectionId": "e302e800-7fbd-4257-a7c8-86f28779a095",
+    "dateExported": "2024-05-06T19:24:10.374Z",
+    "version": "1.2",
+    "folders": [
+        {
+            "_id": "c891379f-a764-4e0f-bdf7-d5b44d4b8600",
+            "name": "Auth",
+            "containerId": "",
+            "created": "2024-05-06T14:26:13.438Z",
+            "sortNum": 10000
+        },
+        {
+            "_id": "feaa0ef2-bf69-44ab-88c6-cc559a7cff4a",
+            "name": "Users",
+            "containerId": "",
+            "created": "2024-05-06T14:30:04.901Z",
+            "sortNum": 30000
+        },
+        {
+            "_id": "e6a35866-952c-454d-a6b2-eefa8ff844f6",
+            "name": "Books",
+            "containerId": "",
+            "created": "2024-05-06T15:44:33.822Z",
+            "sortNum": 40000
+        },
+        {
+            "_id": "3155424d-ed54-483b-aee8-8ac3f74c3669",
+            "name": "LendBook",
+            "containerId": "",
+            "created": "2024-05-06T18:12:08.634Z",
+            "sortNum": 50000
+        }
+    ],
+    "requests": [
+        {
+            "_id": "86e67ea7-9b73-4eab-bc71-51fd4fc859a7",
+            "colId": "e302e800-7fbd-4257-a7c8-86f28779a095",
+            "containerId": "c891379f-a764-4e0f-bdf7-d5b44d4b8600",
+            "name": "Login",
+            "url": "http://127.0.0.1:8000/api/auth/login",
+            "method": "POST",
+            "sortNum": 10000,
+            "created": "2024-05-06T14:26:25.174Z",
+            "modified": "2024-05-06T14:27:07.644Z",
+            "headers": [
+                {
+                    "name": "Accept",
+                    "value": "application/json"
+                }
+            ],
+            "body": {
+                "type": "json",
+                "raw": "{\r\n  \"email\": \"admin@biblionacho.com\",\r\n  \"password\": \"biblionacho\"\r\n}",
+                "form": []
+            }
+        },
+        {
+            "_id": "7cb38114-5eae-4815-8f86-3c967bbb3395",
+            "colId": "e302e800-7fbd-4257-a7c8-86f28779a095",
+            "containerId": "c891379f-a764-4e0f-bdf7-d5b44d4b8600",
+            "name": "Register",
+            "url": "http://127.0.0.1:8000/api/auth/register",
+            "method": "POST",
+            "sortNum": 20000,
+            "created": "2024-05-06T14:27:36.678Z",
+            "modified": "2024-05-06T14:28:28.825Z",
+            "headers": [
+                {
+                    "name": "Accept",
+                    "value": "application/json"
+                }
+            ],
+            "body": {
+                "type": "json",
+                "raw": "{\r\n  \"first_name\": \"John\",\r\n  \"last_name\": \"Doe\",\r\n  \"email\": \"user1@biblionacho.com\",\r\n  \"password\": \"password\",\r\n  \"password_confirmation\": \"password\"\r\n}",
+                "form": []
+            }
+        },
+        {
+            "_id": "ecd6bcea-c8b8-44b8-b792-8edb5a06ff56",
+            "colId": "e302e800-7fbd-4257-a7c8-86f28779a095",
+            "containerId": "c891379f-a764-4e0f-bdf7-d5b44d4b8600",
+            "name": "Logout",
+            "url": "http://127.0.0.1:8000/api/auth/logout",
+            "method": "DELETE",
+            "sortNum": 30000,
+            "created": "2024-05-06T14:28:58.295Z",
+            "modified": "2024-05-06T14:29:48.399Z",
+            "headers": [
+                {
+                    "name": "Accept",
+                    "value": "application/json"
+                },
+                {
+                    "name": "Authorization",
+                    "value": "Bearer 67|kWLU99ZQZdDSQbmLTVUJMEs4mIUFgGhfgkvpiWC77712c94c"
+                }
+            ]
+        },
+        {
+            "_id": "ca03dfe1-0ae2-4d55-ad31-bfe165260bc2",
+            "colId": "e302e800-7fbd-4257-a7c8-86f28779a095",
+            "containerId": "feaa0ef2-bf69-44ab-88c6-cc559a7cff4a",
+            "name": "Store",
+            "url": "http://127.0.0.1:8000/api/users/store",
+            "method": "POST",
+            "sortNum": 40000,
+            "created": "2024-05-06T14:30:20.654Z",
+            "modified": "2024-05-06T14:32:12.002Z",
+            "headers": [
+                {
+                    "name": "Accept",
+                    "value": "application/json"
+                },
+                {
+                    "name": "Authorization",
+                    "value": "Bearer 68|DlBw0X6bxAuHqO8a8RAzxxY7hObTwXjsPptexSb0b21d0486"
+                }
+            ],
+            "body": {
+                "type": "json",
+                "raw": "{\r\n  \"first_name\": \"Alfredo\",\r\n  \"last_name\": \"Mercurio\",\r\n  \"email\": \"alfred1@biblionacho.com\",\r\n  \"password\": \"password\",\r\n  \"password_confirmation\": \"password\"\r\n}",
+                "form": []
+            }
+        },
+        {
+            "_id": "3b5d4b0c-5b61-4d64-bae2-c083a36440cd",
+            "colId": "e302e800-7fbd-4257-a7c8-86f28779a095",
+            "containerId": "e6a35866-952c-454d-a6b2-eefa8ff844f6",
+            "name": "Store",
+            "url": "http://127.0.0.1:8000/api/books/store",
+            "method": "POST",
+            "sortNum": 40000,
+            "created": "2024-05-06T15:44:33.822Z",
+            "modified": "2024-05-06T18:01:13.948Z",
+            "headers": [
+                {
+                    "name": "Accept",
+                    "value": "application/json"
+                },
+                {
+                    "name": "Authorization",
+                    "value": "Bearer 68|DlBw0X6bxAuHqO8a8RAzxxY7hObTwXjsPptexSb0b21d0486"
+                }
+            ],
+            "body": {
+                "type": "json",
+                "raw": "{\n   \"isbn\" : \"75f4gh7d4g\",\n   \"title\": \"The Picture of Dorian Gray created\",\n   \"author\": \"Oscar Wilde created\",\n   \"editorial\": \"Lippincott's Monthly Magazine\",\n   \"edition\": \"23\",\n   \"year\": \"1890\",\n   \"language\": \"en\",\n   \"pages\": \"350\"\n}",
+                "form": []
+            }
+        },
+        {
+            "_id": "6565d9f5-839d-4b4a-aa18-481c68cb79f2",
+            "colId": "e302e800-7fbd-4257-a7c8-86f28779a095",
+            "containerId": "3155424d-ed54-483b-aee8-8ac3f74c3669",
+            "name": "Store",
+            "url": "http://127.0.0.1:8000/api/lendbooks/store",
+            "method": "POST",
+            "sortNum": 40000,
+            "created": "2024-05-06T18:12:08.635Z",
+            "modified": "2024-05-06T19:19:58.268Z",
+            "headers": [
+                {
+                    "name": "Accept",
+                    "value": "application/json"
+                },
+                {
+                    "name": "Authorization",
+                    "value": "Bearer 68|DlBw0X6bxAuHqO8a8RAzxxY7hObTwXjsPptexSb0b21d0486"
+                }
+            ],
+            "body": {
+                "type": "json",
+                "raw": "{\n  \"isbn\": \"yI47e2b87c\",\n  \"observations\": \"oka\",\n  \"deadline\": \"10-05-2024\",\n  \"returned\": false,\n  \"user_id\": 1,\n  \"book_id\": 2\n}",
+                "form": []
+            }
+        },
+        {
+            "_id": "dce01023-8b70-4347-a70b-0a33a86c970d",
+            "colId": "e302e800-7fbd-4257-a7c8-86f28779a095",
+            "containerId": "feaa0ef2-bf69-44ab-88c6-cc559a7cff4a",
+            "name": "Update",
+            "url": "http://127.0.0.1:8000/api/users/update/22",
+            "method": "PUT",
+            "sortNum": 50000,
+            "created": "2024-05-06T14:32:34.342Z",
+            "modified": "2024-05-06T14:52:16.988Z",
+            "headers": [
+                {
+                    "name": "Accept",
+                    "value": "application/json"
+                },
+                {
+                    "name": "Authorization",
+                    "value": "Bearer 68|DlBw0X6bxAuHqO8a8RAzxxY7hObTwXjsPptexSb0b21d0486"
+                }
+            ],
+            "body": {
+                "type": "json",
+                "raw": "{\r\n  \"first_name\": \"Alfredo edit 2\",\r\n  \"last_name\": \"Mercurio 22\",\r\n  \"email\": \"alfred1@biblionacho185.com\",\r\n  \"password\": \"password\",\r\n  \"password_confirmation\": \"password\"\r\n}",
+                "form": []
+            }
+        },
+        {
+            "_id": "4dedea70-0aea-41e4-a6b1-f4872d927172",
+            "colId": "e302e800-7fbd-4257-a7c8-86f28779a095",
+            "containerId": "e6a35866-952c-454d-a6b2-eefa8ff844f6",
+            "name": "Update",
+            "url": "http://127.0.0.1:8000/api/books/update/100",
+            "method": "PUT",
+            "sortNum": 50000,
+            "created": "2024-05-06T15:44:33.823Z",
+            "modified": "2024-05-06T18:04:39.961Z",
+            "headers": [
+                {
+                    "name": "Accept",
+                    "value": "application/json"
+                },
+                {
+                    "name": "Authorization",
+                    "value": "Bearer 68|DlBw0X6bxAuHqO8a8RAzxxY7hObTwXjsPptexSb0b21d0486"
+                }
+            ],
+            "body": {
+                "type": "json",
+                "raw": "{\n   \"isbn\" : \"75f4gh7d4g\",\n   \"title\": \"The Picture of Dorian Gray edited\",\n   \"author\": \"Oscar Wilde edit\",\n   \"editorial\": \"Lippincott's Monthly Magazine\",\n   \"edition\": \"23\",\n   \"year\": \"1890\",\n   \"language\": \"en\",\n   \"pages\": \"350\"\n}",
+                "form": []
+            }
+        },
+        {
+            "_id": "de1ec5ca-4092-4088-8d62-fc5f49b35d9a",
+            "colId": "e302e800-7fbd-4257-a7c8-86f28779a095",
+            "containerId": "3155424d-ed54-483b-aee8-8ac3f74c3669",
+            "name": "Update",
+            "url": "http://127.0.0.1:8000/api/lendbooks/update/2",
+            "method": "PUT",
+            "sortNum": 50000,
+            "created": "2024-05-06T18:12:08.636Z",
+            "modified": "2024-05-06T19:21:22.379Z",
+            "headers": [
+                {
+                    "name": "Accept",
+                    "value": "application/json"
+                },
+                {
+                    "name": "Authorization",
+                    "value": "Bearer 68|DlBw0X6bxAuHqO8a8RAzxxY7hObTwXjsPptexSb0b21d0486"
+                }
+            ],
+            "body": {
+                "type": "json",
+                "raw": "{\n  \"isbn\": \"yI47e2b87c\",\n  \"observations\": \"oka edited\",\n  \"deadline\": \"10-05-2024\",\n  \"returned\": false,\n  \"user_id\": 1,\n  \"book_id\": 2\n}",
+                "form": []
+            }
+        },
+        {
+            "_id": "8fdf07eb-2319-4489-a8e3-fe74aff795a4",
+            "colId": "e302e800-7fbd-4257-a7c8-86f28779a095",
+            "containerId": "feaa0ef2-bf69-44ab-88c6-cc559a7cff4a",
+            "name": "Delete",
+            "url": "http://127.0.0.1:8000/api/users/destroy/22",
+            "method": "DELETE",
+            "sortNum": 60000,
+            "created": "2024-05-06T15:27:03.646Z",
+            "modified": "2024-05-06T15:27:38.939Z",
+            "headers": [
+                {
+                    "name": "Accept",
+                    "value": "application/json"
+                },
+                {
+                    "name": "Authorization",
+                    "value": "Bearer 68|DlBw0X6bxAuHqO8a8RAzxxY7hObTwXjsPptexSb0b21d0486"
+                }
+            ]
+        },
+        {
+            "_id": "228f186f-4294-4f84-ae96-969cb92b29a7",
+            "colId": "e302e800-7fbd-4257-a7c8-86f28779a095",
+            "containerId": "e6a35866-952c-454d-a6b2-eefa8ff844f6",
+            "name": "Delete",
+            "url": "http://127.0.0.1:8000/api/books/destroy/101",
+            "method": "DELETE",
+            "sortNum": 60000,
+            "created": "2024-05-06T15:44:33.824Z",
+            "modified": "2024-05-06T18:02:32.582Z",
+            "headers": [
+                {
+                    "name": "Accept",
+                    "value": "application/json"
+                },
+                {
+                    "name": "Authorization",
+                    "value": "Bearer 68|DlBw0X6bxAuHqO8a8RAzxxY7hObTwXjsPptexSb0b21d0486"
+                }
+            ]
+        },
+        {
+            "_id": "bccf6ca9-7357-4d71-96ce-9287a4576b9c",
+            "colId": "e302e800-7fbd-4257-a7c8-86f28779a095",
+            "containerId": "3155424d-ed54-483b-aee8-8ac3f74c3669",
+            "name": "Delete",
+            "url": "http://127.0.0.1:8000/api/lendbooks/destroy/2",
+            "method": "DELETE",
+            "sortNum": 60000,
+            "created": "2024-05-06T18:12:08.637Z",
+            "modified": "2024-05-06T19:21:36.990Z",
+            "headers": [
+                {
+                    "name": "Accept",
+                    "value": "application/json"
+                },
+                {
+                    "name": "Authorization",
+                    "value": "Bearer 68|DlBw0X6bxAuHqO8a8RAzxxY7hObTwXjsPptexSb0b21d0486"
+                }
+            ]
+        },
+        {
+            "_id": "c43155ef-7861-40a5-8c4c-8cece5a61164",
+            "colId": "e302e800-7fbd-4257-a7c8-86f28779a095",
+            "containerId": "feaa0ef2-bf69-44ab-88c6-cc559a7cff4a",
+            "name": "Show",
+            "url": "http://127.0.0.1:8000/api/users/show/21",
+            "method": "GET",
+            "sortNum": 70000,
+            "created": "2024-05-06T15:35:05.692Z",
+            "modified": "2024-05-06T15:39:29.032Z",
+            "headers": [
+                {
+                    "name": "Accept",
+                    "value": "application/json"
+                },
+                {
+                    "name": "Authorization",
+                    "value": "Bearer 68|DlBw0X6bxAuHqO8a8RAzxxY7hObTwXjsPptexSb0b21d0486"
+                }
+            ]
+        },
+        {
+            "_id": "1a9479c4-6094-4c5b-adeb-d64a831afc53",
+            "colId": "e302e800-7fbd-4257-a7c8-86f28779a095",
+            "containerId": "e6a35866-952c-454d-a6b2-eefa8ff844f6",
+            "name": "Show",
+            "url": "http://127.0.0.1:8000/api/books/show/100",
+            "method": "GET",
+            "sortNum": 70000,
+            "created": "2024-05-06T15:44:33.825Z",
+            "modified": "2024-05-06T18:11:35.611Z",
+            "headers": [
+                {
+                    "name": "Accept",
+                    "value": "application/json"
+                },
+                {
+                    "name": "Authorization",
+                    "value": "Bearer 68|DlBw0X6bxAuHqO8a8RAzxxY7hObTwXjsPptexSb0b21d0486"
+                }
+            ]
+        },
+        {
+            "_id": "9a482742-1dd5-4563-b2be-02a7db17b2c6",
+            "colId": "e302e800-7fbd-4257-a7c8-86f28779a095",
+            "containerId": "3155424d-ed54-483b-aee8-8ac3f74c3669",
+            "name": "Show",
+            "url": "http://127.0.0.1:8000/api/lendbooks/show/2",
+            "method": "GET",
+            "sortNum": 70000,
+            "created": "2024-05-06T18:12:08.638Z",
+            "modified": "2024-05-06T19:21:43.358Z",
+            "headers": [
+                {
+                    "name": "Accept",
+                    "value": "application/json"
+                },
+                {
+                    "name": "Authorization",
+                    "value": "Bearer 68|DlBw0X6bxAuHqO8a8RAzxxY7hObTwXjsPptexSb0b21d0486"
+                }
+            ]
+        },
+        {
+            "_id": "eb404da5-24d1-4021-9054-57309056989c",
+            "colId": "e302e800-7fbd-4257-a7c8-86f28779a095",
+            "containerId": "feaa0ef2-bf69-44ab-88c6-cc559a7cff4a",
+            "name": "Index",
+            "url": "http://127.0.0.1:8000/api/users/index",
+            "method": "GET",
+            "sortNum": 80000,
+            "created": "2024-05-06T15:37:21.616Z",
+            "modified": "2024-05-06T15:39:38.101Z",
+            "headers": [
+                {
+                    "name": "Accept",
+                    "value": "application/json"
+                },
+                {
+                    "name": "Authorization",
+                    "value": "Bearer 68|DlBw0X6bxAuHqO8a8RAzxxY7hObTwXjsPptexSb0b21d0486"
+                }
+            ]
+        },
+        {
+            "_id": "997e02a0-4176-4a8a-a641-055d7c0febeb",
+            "colId": "e302e800-7fbd-4257-a7c8-86f28779a095",
+            "containerId": "e6a35866-952c-454d-a6b2-eefa8ff844f6",
+            "name": "Index",
+            "url": "http://127.0.0.1:8000/api/users/index",
+            "method": "GET",
+            "sortNum": 80000,
+            "created": "2024-05-06T15:44:33.826Z",
+            "modified": "2024-05-06T15:44:33.822Z",
+            "headers": [
+                {
+                    "name": "Accept",
+                    "value": "application/json"
+                },
+                {
+                    "name": "Authorization",
+                    "value": "Bearer 68|DlBw0X6bxAuHqO8a8RAzxxY7hObTwXjsPptexSb0b21d0486"
+                }
+            ]
+        },
+        {
+            "_id": "dbe769e7-33ad-42b3-89ca-ddc8acfce353",
+            "colId": "e302e800-7fbd-4257-a7c8-86f28779a095",
+            "containerId": "3155424d-ed54-483b-aee8-8ac3f74c3669",
+            "name": "Index",
+            "url": "http://127.0.0.1:8000/api/lendbooks/index",
+            "method": "GET",
+            "sortNum": 80000,
+            "created": "2024-05-06T18:12:08.639Z",
+            "modified": "2024-05-06T18:14:11.732Z",
+            "headers": [
+                {
+                    "name": "Accept",
+                    "value": "application/json"
+                },
+                {
+                    "name": "Authorization",
+                    "value": "Bearer 68|DlBw0X6bxAuHqO8a8RAzxxY7hObTwXjsPptexSb0b21d0486"
+                }
+            ]
+        }
+    ],
+    "ref": "N2R2dXo5YMHo2kZdJZM-zb2IBvmm2B-CAouvhcUJBAQBZPgNPFeqBWtTGwZ4cxRRioVN6iXQtoPHy3F15HlvMQ"
+}
