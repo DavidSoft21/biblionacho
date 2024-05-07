@@ -81,6 +81,7 @@ export class EditBookComponent implements OnInit {
   }
 
   private handleErrors(errors: any): void {
+    alert('Error Unautorizated')
     this.errors = errors.error.errors;
   }
 
