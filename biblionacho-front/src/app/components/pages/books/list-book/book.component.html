@@ -1,0 +1,45 @@
+<h1 class="text-center">Books</h1>
+<div class="card text-center">
+  <a class="btn btn-primary btn-sm" routerLink="/store-book">new</a>
+  <div class="card-header">Books</div>
+
+  <div class="card-body">
+    <div class="table-responsive">
+      <table class="table">
+        <thead>
+          <tr>
+            <th scope="col">ID</th>
+            <th scope="col">ISBN</th>
+            <th scope="col">TITLE</th>
+            <th scope="col">AUTHOR</th>
+            <th scope="col">PAGES</th>
+            <th scope="col">EDITORIAL</th>
+            <th scope="col">ACCIONES</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let book of books.books; let iControl = index">
+            <th scope="row">{{ book.id }}</th>
+            <td>{{ book.isbn }}</td>
+            <td>{{ book.title }}</td>
+            <td>{{ book.author }}</td>
+            <td>{{ book.pages }}</td>
+            <td>{{ book.editorial }}</td>
+            <td>
+              <div class="d-flex">
+                <a [routerLink]="['/edit-book', book.id]" class="btn btn-warning"
+                  >edit</a>
+                <a
+                  class="btn btn-danger"
+                  (click)="deleteBook(book.id, iControl)"
+                  >delete</a
+                >
+              </div>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+

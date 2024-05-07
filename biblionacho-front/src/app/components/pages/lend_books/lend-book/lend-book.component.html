@@ -1,0 +1,45 @@
+<h1 class="text-center">Lend Book</h1>
+<div class="card text-center">
+  <a class="btn btn-primary btn-sm" routerLink="/lendbook-store">new</a>
+  <div class="card-header">Lend Books</div>
+
+  <div class="card-body">
+    <div class="table-responsive">
+      <table class="table">
+        <thead>
+          <tr>
+            <th scope="col">ID</th>
+            <th scope="col">IDENTIFICACION</th>
+            <th scope="col">ISBN</th>
+            <th scope="col">OBSERVATION</th>
+            <th scope="col">DEADLINE</th>
+            <th scope="col">ACCIONES</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let lendbook of lendbooks.lendbooks; let iControl = index">
+            <th scope="row">{{ lendbook.id }}</th>
+            <td>{{ lendbook.identification }}</td>
+            <td>{{ lendbook.isbn }}</td>
+            <td>{{ lendbook.observations }}</td>
+            <td>{{ lendbook.deadline }}</td>
+            <td>
+              <div class="d-flex">
+                <a
+                  [routerLink]="['/edit-book', lendbook.id]"
+                  class="btn btn-warning"
+                  >edit</a
+                >
+                <a
+                  class="btn btn-danger"
+                  (click)="deleteLendBook(lendbook.id, iControl)"
+                  >delete</a
+                >
+              </div>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

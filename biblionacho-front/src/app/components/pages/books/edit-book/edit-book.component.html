@@ -1,0 +1,115 @@
+<section class="row py-5">
+  <div class="col-12 col-md-6 col-lg-4 offset-md-3 offset-lg-4">
+    <div class="card">
+      <div class="card-body">
+        <h2 class="text-center my-2">Edit Book</h2>
+        <!-- Errors -->
+        <div *ngIf="errors?.isbn" class="alert alert-danger" role="alert">
+          {{ errors.isbn }}
+        </div>
+
+        <div *ngIf="errors?.title" class="alert alert-danger" role="alert">
+          {{ errors.title }}
+        </div>
+
+        <div *ngIf="errors?.author" class="alert alert-danger" role="alert">
+          {{ errors.author }}
+        </div>
+
+        <div *ngIf="errors?.pages" class="alert alert-danger" role="alert">
+          {{ errors.pages }}
+        </div>
+
+        <div *ngIf="errors?.editorial" class="alert alert-danger" role="alert">
+          {{ errors.editorial }}
+        </div>
+
+        <div *ngIf="errors?.year" class="alert alert-danger" role="alert">
+          {{ errors.year }}
+        </div>
+
+        <div *ngIf="errors?.message" class="alert alert-danger" role="alert">
+          {{ errors.message }}
+        </div>
+
+        <!-- Edit Book Form -->
+        <form [formGroup]="updateForm" (ngSubmit)="updateBook()">
+          <!-- Input iSBN -->
+          <div class="mb-3">
+            <label for="inputIsbn" class="form-label">ISBN</label>
+            <input
+              type="text"
+              class="form-control"
+              id="inputIsbn"
+              formControlName="isbn"
+            />
+          </div>
+
+          <!-- Input Title -->
+          <div class="mb-3">
+            <label for="inputTitle" class="form-label">Title</label>
+            <input
+              type="text"
+              class="form-control"
+              id="inputTitle"
+              formControlName="title"
+            />
+          </div>
+
+          <!-- Input Author -->
+          <div class="mb-3">
+            <label for="inputAuthor" class="form-label">Author</label>
+            <input
+              type="text"
+              class="form-control"
+              id="inputAuthor"
+              formControlName="author"
+            />
+          </div>
+
+          <!-- Input Pages -->
+          <div class="mb-3">
+            <label for="inputPages" class="form-label">Pages</label>
+            <input
+              type="text"
+              class="form-control"
+              id="inputPages"
+              formControlName="pages"
+            />
+          </div>
+
+          <!-- Input Editorial -->
+          <div class="mb-3">
+            <label for="inputEditorial" class="form-label">Editorial</label>
+            <input
+              type="text"
+              class="form-control"
+              id="inputEditorial"
+              formControlName="editorial"
+            />
+          </div>
+
+          <!-- Input Year -->
+          <div class="mb-3">
+            <label for="inputYear" class="form-label">Year</label>
+            <input
+              type="number"
+              class="form-control"
+              id="inputYear"
+              formControlName="year"
+            />
+          </div>
+
+          <button type="submit" class="btn btn-lg w-100 mt-1 mb-4 btn-primary">
+            Update
+          </button>
+
+          <a routerLink="/book" class="d-block mb-4 mt-1 text-center"
+            >Go Back</a
+          >
+        </form>
+      </div>
+    </div>
+  </div>
+</section>
+

@@ -1,4 +1,4 @@
-<section class="row py-5">
+<section class="row py-2 mb-2">
   <div class="col-12 col-md-6 col-lg-4 offset-md-3 offset-lg-4">
     <div class="card">
       <div class="card-body">
@@ -20,8 +20,20 @@
           {{ errors.password  }}
         </div>  
 
+        <div *ngIf="errors?.identification" class="alert alert-danger" role="alert">
+          {{ errors.identification  }}
+        </div>
+        
+      
         <!-- Register Form -->
         <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
+
+           <!-- Input Identification -->
+           <div class="mb-3">
+            <label for="inputIdentification" class="form-label">Identification</label>
+            <input type="text" class="form-control" id="inputIdentification" formControlName="identification" />
+          </div>
+
           <!-- Input First Name -->
           <div class="mb-3">
             <label for="inputFirstName" class="form-label">First Name</label>

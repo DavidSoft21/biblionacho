@@ -1,0 +1,132 @@
+<section class="row py-5">
+  <div class="col-12 col-md-6 col-lg-4 offset-md-3 offset-lg-4">
+    <div class="card">
+      <div class="card-body">
+        <h2 class="text-center my-2">Create Lend of Book</h2>
+        <!-- Errors -->
+        <div *ngIf="errors?.isbn" class="alert alert-danger" role="alert">
+          {{ errors.isbn }}
+        </div>
+
+        <div
+          *ngIf="errors?.observations"
+          class="alert alert-danger"
+          role="alert"
+        >
+          {{ errors.title }}
+        </div>
+
+        <div
+          *ngIf="errors?.identification"
+          class="alert alert-danger"
+          role="alert"
+        >
+          {{ errors.author }}
+        </div>
+
+        <div *ngIf="errors?.deadline" class="alert alert-danger" role="alert">
+          {{ errors.pages }}
+        </div>
+
+        <div *ngIf="errors?.message" class="alert alert-danger" role="alert">
+          {{ errors.message }}
+        </div>
+
+        <!-- Store Lend of Book Form -->
+        <form [formGroup]="createForm" (ngSubmit)="createLendBook()">
+          <!-- Input IDENTIFICATION -->
+          <div class="mb-3">
+            <label for="inputIdentification" class="form-label"
+              >Identification</label
+            >
+            <input
+              type="text"
+              class="form-control"
+              id="inputIdentification"
+              formControlName="identification"
+              value="example 144048955"
+            />
+          </div>
+
+          <!-- Input ISBN -->
+          <div class="mb-3">
+            <label for="inputIsbn" class="form-label">ISBN</label>
+            <input
+              type="text"
+              class="form-control"
+              id="inputIsbn"
+              formControlName="isbn"
+              value="example Ezx548TYl5"
+            />
+          </div>
+
+          <!-- Input Observations -->
+          <div class="mb-3">
+            <label for="inputObservations" class="form-label"
+              >Observations</label
+            >
+            <input
+              type="text"
+              class="form-control"
+              id="inputObservations"
+              formControlName="observations"
+              value="example Observations"
+            />
+          </div>
+
+          <!-- Input Deadline -->
+          <!-- <div class="mb-3">
+            <label for="inputDeadline" class="form-label">Deadline</label>
+            <input
+              type="text"
+              class="form-control"
+              id="inputDeadline"
+              formControlName="deadline"
+            />
+          </div> -->
+
+          <!-- Input Returned -->
+          <div class="mb-3">
+            <label for="inputReturned" class="form-label disabled"
+              >Returned</label
+            >
+            <input
+              type="checkbox"
+              class="form-check-input"
+              id="inputReturned"
+              formControlName="returned"
+              value="false"
+            />
+          </div>
+
+          <!-- Input user id -->
+          <div class="mb-3">
+            <label for="inputUserId" class="form-label">Usuario</label>
+            <input type="string" class="form-control" id="inputUserId"
+            formControlName="user_id" value="example id user 1" />
+          </div>
+
+          <!-- Input book id -->
+          <div class="mb-3">
+            <label for="inputBookId" class="form-label">Book</label>
+            <input
+              type="string"
+              class="form-control"
+              id="inputBookId"
+              formControlName="book_id"
+              value="example id 10"
+            />
+          </div>
+
+          <button type="submit" class="btn btn-lg w-100 mt-1 mb-4 btn-primary">
+            Create
+          </button>
+
+          <a routerLink="/lend-book" class="d-block mb-4 mt-1 text-center"
+            >Go Back</a
+          >
+        </form>
+      </div>
+    </div>
+  </div>
+</section>
