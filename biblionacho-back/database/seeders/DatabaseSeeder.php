@@ -19,7 +19,7 @@ class DatabaseSeeder extends Seeder
     {
 
         //Create Books
-        Book::factory(100)->create();
+        Book::factory(10)->create();
         
         //Create Users
         $user_admin = User::create([

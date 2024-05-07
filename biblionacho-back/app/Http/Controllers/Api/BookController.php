@@ -366,9 +366,15 @@ class BookController extends Controller
     {
         try {
             $validatedData = $request->validated();
-
+    
             $book = Book::find($id);
-
+    
+            if (!$book) {
+                return response()->json([
+                    'message' => 'Book not found',
+                ], 404);
+            }
+    
             $book->update([
                 'isbn' => $validatedData['isbn'],
                 'title' => $validatedData['title'],
@@ -379,7 +385,7 @@ class BookController extends Controller
                 'language' => $validatedData['language'],
                 'pages' => $validatedData['pages']
             ]);
-
+    
             return response()->json([
                 'message' => 'Successfully updated',
                 'book' => $book

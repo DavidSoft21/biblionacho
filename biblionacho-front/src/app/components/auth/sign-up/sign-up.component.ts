@@ -19,6 +19,7 @@ export class SignUpComponent {
     private fb: FormBuilder
   ) {
     this.registerForm = this.fb.group({
+      identification: [''],
       first_name: [''],
       last_name: [''],
       email: [''],

@@ -43,6 +43,7 @@ export class LoginComponent {
 
   private handleResponse(response: any): void {
     this.tokenservice.handleToken(response.token);
+    this.tokenservice.handleUser(response.user);
     this.router.navigateByUrl('/dashboard');
   }
 
