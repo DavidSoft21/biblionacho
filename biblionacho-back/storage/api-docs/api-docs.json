@@ -152,6 +152,7 @@
                         "application/json": {
                             "schema": {
                                 "required": [
+                                    "identification",
                                     "first_name",
                                     "last_name",
                                     "email",
@@ -159,6 +160,10 @@
                                     "password_confirmation"
                                 ],
                                 "properties": {
+                                    "identification": {
+                                        "type": "string",
+                                        "example": "11440895789"
+                                    },
                                     "first_name": {
                                         "type": "string",
                                         "example": "John"
@@ -1087,14 +1092,18 @@
                         "application/json": {
                             "schema": {
                                 "required": [
+                                    "identification",
                                     "isbn",
                                     "observations",
-                                    "deadline",
                                     "returned",
                                     "user_id",
                                     "book_id"
                                 ],
                                 "properties": {
+                                    "identification": {
+                                        "type": "string",
+                                        "example": "123456789"
+                                    },
                                     "isbn": {
                                         "type": "string",
                                         "example": "yI47e2b87c"
@@ -1102,11 +1111,6 @@
                                     "observations": {
                                         "type": "string",
                                         "example": ""
-                                    },
-                                    "deadline": {
-                                        "type": "string",
-                                        "format": "date",
-                                        "example": "10-05-2024"
                                     },
                                     "returned": {
                                         "type": "boolean",
@@ -1367,14 +1371,18 @@
                         "application/json": {
                             "schema": {
                                 "required": [
+                                    "identification",
                                     "isbn",
                                     "observations",
-                                    "deadline",
                                     "returned",
                                     "user_id",
                                     "book_id"
                                 ],
                                 "properties": {
+                                    "identification": {
+                                        "type": "string",
+                                        "example": "123456789"
+                                    },
                                     "isbn": {
                                         "type": "string",
                                         "example": "yI47e2b87c"
@@ -1382,11 +1390,6 @@
                                     "observations": {
                                         "type": "string",
                                         "example": ""
-                                    },
-                                    "deadline": {
-                                        "type": "string",
-                                        "format": "date",
-                                        "example": "10-05-2024"
                                     },
                                     "returned": {
                                         "type": "boolean",
@@ -1734,6 +1737,7 @@
                         "application/json": {
                             "schema": {
                                 "required": [
+                                    "identification",
                                     "first_name",
                                     "last_name",
                                     "email",
@@ -1741,6 +1745,10 @@
                                     "password_confirmation"
                                 ],
                                 "properties": {
+                                    "identification": {
+                                        "type": "string",
+                                        "example": "114459875"
+                                    },
                                     "first_name": {
                                         "type": "string",
                                         "example": "Alfredo"
@@ -2011,6 +2019,7 @@
                         "application/json": {
                             "schema": {
                                 "required": [
+                                    "identification",
                                     "first_name",
                                     "last_name",
                                     "email",
@@ -2018,6 +2027,10 @@
                                     "password_confirmation"
                                 ],
                                 "properties": {
+                                    "identification": {
+                                        "type": "string",
+                                        "example": "114459875"
+                                    },
                                     "first_name": {
                                         "type": "string",
                                         "example": "Alfredo"
@@ -2281,6 +2294,7 @@
         "schemas": {
             "User": {
                 "required": [
+                    "identification",
                     "first_name",
                     "last_name",
                     "email",
@@ -2288,6 +2302,11 @@
                     "password_confirmation"
                 ],
                 "properties": {
+                    "identification": {
+                        "description": "The user's identification",
+                        "type": "string",
+                        "example": "1234567890"
+                    },
                     "email": {
                         "description": "The user's email",
                         "type": "string",
@@ -2304,12 +2323,12 @@
                         "example": "biblionacho"
                     },
                     "first_name": {
-                        "description": "The user's name",
+                        "description": "The user's first name",
                         "type": "string",
                         "example": "Benjamin"
                     },
                     "last_name": {
-                        "description": "The user's last_name",
+                        "description": "The user's last name",
                         "type": "string",
                         "example": "Franklin"
                     }
@@ -2373,6 +2392,7 @@
             },
             "LendBook": {
                 "required": [
+                    "identification ",
                     "isbn",
                     "observations",
                     "deadline",
@@ -2381,6 +2401,11 @@
                     "book_id"
                 ],
                 "properties": {
+                    "identification": {
+                        "description": "identification of user",
+                        "type": "string",
+                        "example": "123456789"
+                    },
                     "isbn": {
                         "description": "ISBN of the lend book",
                         "type": "string",

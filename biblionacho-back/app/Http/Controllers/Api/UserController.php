@@ -87,18 +87,19 @@ class UserController extends Controller
      *     @OA\Schema(
      *       type="string",
      *       default="Bearer id|YOUR_ACCESS_TOKEN_HERE"
-     *    )
+     *     )
      *   ),
      *   @OA\RequestBody(
      *     required=true,
      *     description="User creation",
      *     @OA\JsonContent(
-     *       required={"first_name","last_name","email","password", "password_confirmation"},
+     *       required={"identification","first_name","last_name","email","password","password_confirmation"},
+     *       @OA\Property(property="identification", type="string", example="114459875"),
      *       @OA\Property(property="first_name", type="string", example="Alfredo"),
      *       @OA\Property(property="last_name", type="string", example="Mercurio"),
      *       @OA\Property(property="email", type="string", format="email", example="alfred@biblionacho.com"),
      *       @OA\Property(property="password", type="string", format="password", example="password"),
-     *       @OA\Property(property="password_confirmation", type="string", format="password", example="password"),
+     *       @OA\Property(property="password_confirmation", type="string", format="password", example="password")
      *     )
      *   ),
      *   @OA\Response(
@@ -106,7 +107,7 @@ class UserController extends Controller
      *     description="Successfully registered",
      *     @OA\JsonContent(
      *       @OA\Property(property="message", type="string", example="Successfully registered"),
-     *       @OA\Property(property="user", type="object", ref="#/components/schemas/User"),
+     *       @OA\Property(property="user", type="object", ref="#/components/schemas/User")
      *     )
      *   ),
      *   @OA\Response(
@@ -114,29 +115,30 @@ class UserController extends Controller
      *     description="Validation Error",
      *     @OA\JsonContent(
      *       @OA\Property(property="message", type="string", example="Validation Error"),
-     *       @OA\Property(property="errors", type="object", example={"email": {"The email field is required."}}),
+     *       @OA\Property(property="errors", type="object", example={"email": {"The email field is required."}})
      *     )
      *   ),
-     * 
-     * @OA\Response(
+     *   @OA\Response(
      *     response=500,
      *     description="Internal Server Error",
      *     @OA\JsonContent(
      *       @OA\Property(property="message", type="string", example="Server Error"),
-     *       @OA\Property(property="errors", type="object", example={"errors": {"Internal server error!"}}),
+     *       @OA\Property(property="errors", type="object", example={"errors": {"Internal server error!"}})
      *     )
-     *   ),
+     *   )
      * )
      *
      * @param UserCreateRequest $request
      * @return JsonResponse
      */
+
     public function store(UserCreateRequest $request): JsonResponse
     {
         try {
             $validatedData = $request->validated();
 
             $user = User::create([
+                'identification' => $validatedData['identification'],
                 'first_name' => $validatedData['first_name'],
                 'last_name' => $validatedData['last_name'],
                 'email' => $validatedData['email'],
@@ -263,7 +265,7 @@ class UserController extends Controller
      *     @OA\Schema(
      *       type="string",
      *       default="Bearer id|YOUR_ACCESS_TOKEN_HERE"
-     *    )
+     *     )
      *   ),
      *   @OA\Parameter(
      *     name="id",
@@ -272,18 +274,19 @@ class UserController extends Controller
      *     description="User ID",
      *     @OA\Schema(
      *       type="integer"
-     *    )
+     *     )
      *   ),
      *   @OA\RequestBody(
      *     required=true,
      *     description="User update",
      *     @OA\JsonContent(
-     *       required={"first_name","last_name","email","password", "password_confirmation"},
+     *       required={"identification","first_name","last_name","email","password","password_confirmation"},
+     *       @OA\Property(property="identification", type="string", example="114459875"),
      *       @OA\Property(property="first_name", type="string", example="Alfredo"),
      *       @OA\Property(property="last_name", type="string", example="Mercurio"),
      *       @OA\Property(property="email", type="string", format="email", example="alfred@biblionacho.com"),
      *       @OA\Property(property="password", type="string", format="password", example="password"),
-     *       @OA\Property(property="password_confirmation", type="string", format="password", example="password"),
+     *       @OA\Property(property="password_confirmation", type="string", format="password", example="password")
      *     )
      *   ),
      *   @OA\Response(
@@ -291,7 +294,7 @@ class UserController extends Controller
      *     description="Successfully updated",
      *     @OA\JsonContent(
      *       @OA\Property(property="message", type="string", example="Successfully updated"),
-     *       @OA\Property(property="user", type="object", ref="#/components/schemas/User"),
+     *       @OA\Property(property="user", type="object", ref="#/components/schemas/User")
      *     )
      *   ),
      *   @OA\Response(
@@ -299,27 +302,25 @@ class UserController extends Controller
      *     description="Validation Error",
      *     @OA\JsonContent(
      *       @OA\Property(property="message", type="string", example="Validation Error"),
-     *       @OA\Property(property="errors", type="object", example={"email": {"The email field is required."}}),
+     *       @OA\Property(property="errors", type="object", example={"email": {"The email field is required."}})
      *     )
      *   ),
-     * 
-     * @OA\Response(
+     *   @OA\Response(
      *     response=404,
      *     description="Not Found",
      *     @OA\JsonContent(
      *       @OA\Property(property="message", type="string", example="Not Found"),
-     *       @OA\Property(property="errors", type="object", example={"errors": {"The User with the provided ID was not found."}}),
+     *       @OA\Property(property="errors", type="object", example={"errors": {"The User with the provided ID was not found."}})
      *     )
      *   ),
-     * 
-     * @OA\Response(
+     *   @OA\Response(
      *     response=500,
      *     description="Internal Server Error",
      *     @OA\JsonContent(
      *       @OA\Property(property="message", type="string", example="Server Error"),
-     *       @OA\Property(property="errors", type="object", example={"errors": {"Internal server error!"}}),
+     *       @OA\Property(property="errors", type="object", example={"errors": {"Internal server error!"}})
      *     )
-     *   ),
+     *   )
      * )
      *
      * @param UserUpdateRequest $request
@@ -334,6 +335,7 @@ class UserController extends Controller
             $user = User::find($id);
 
             $user->update([
+                'identification' => $validatedData['identification'],
                 'first_name' => $validatedData['first_name'],
                 'last_name' => $validatedData['last_name'],
                 'email' => $validatedData['email'],

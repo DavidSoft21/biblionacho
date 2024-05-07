@@ -23,6 +23,7 @@ class DatabaseSeeder extends Seeder
         
         //Create Users
         $user_admin = User::create([
+            'identification' => '144048955', 
             'first_name' => 'admin',
             'last_name' => 'biblionacho',
             'email' => 'admin@biblionacho.com',
@@ -30,6 +31,7 @@ class DatabaseSeeder extends Seeder
         ]);
 
         $user_employee =  User::create([
+            'identification' => '158048955', 
             'first_name' => 'employee',
             'last_name' => 'biblionacho',
             'email' => 'employee@biblionacho.com',
@@ -37,6 +39,7 @@ class DatabaseSeeder extends Seeder
         ]);
 
         $user_affiliate =  User::create([
+            'identification' => '35880485', 
             'first_name' => 'affiliate',
             'last_name' => 'biblionacho',
             'email' => 'affiliate@biblionacho.com',
@@ -44,6 +47,7 @@ class DatabaseSeeder extends Seeder
         ]);
 
         $user_guest = User::create([
+            'identification' => '11448975',
             'first_name' => 'guest',
             'last_name' => 'biblionacho',
             'email' => 'guest@biblionacho.com',

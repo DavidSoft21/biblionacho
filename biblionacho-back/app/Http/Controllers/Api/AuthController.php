@@ -26,45 +26,46 @@ class AuthController extends Controller
     /**
      * @OA\Schema(
      *   schema="User",
-     *   required={"first_name","last_name","email", "password", "password_confirmation"},
+     *   required={"identification","first_name","last_name","email", "password", "password_confirmation"},
+     *   @OA\Property(
+     *     property="identification",
+     *     type="string",
+     *     description="The user's identification",
+     *     example="1234567890"
+     *   ),
      *   @OA\Property(
      *     property="email",
      *     type="string",
      *     description="The user's email",
      *     example="admin@biblionacho.com"
      *   ),
-     *
      *   @OA\Property(
      *     property="password",
      *     type="string",
      *     description="The user's password",
      *     example="biblionacho"
      *   ),
-     * 
      *   @OA\Property(
      *     property="password_confirmation",
      *     type="string",
      *     description="The user's password confirmation",
      *     example="biblionacho"
      *   ),
-     * 
-     * @OA\Property(
+     *   @OA\Property(
      *     property="first_name",
      *     type="string",
-     *     description="The user's name",
+     *     description="The user's first name",
      *     example="Benjamin"
      *   ),
-     * 
-     * @OA\Property(
+     *   @OA\Property(
      *     property="last_name",
      *     type="string",
-     *     description="The user's last_name",
+     *     description="The user's last name",
      *     example="Franklin"
      *   ),
-     * 
      *   @OA\RequestBody(
      *     required=true,
-     *     description="Credencials to login",
+     *     description="Credentials to login",
      *     @OA\JsonContent(
      *       @OA\Property(property="email", type="string", example="admin@biblionacho.com"),
      *       @OA\Property(property="password", type="string", example="biblionacho")
@@ -93,14 +94,14 @@ class AuthController extends Controller
      *     @OA\JsonContent(
      *       @OA\Property(property="message", type="string", example="Successfully logged in"),
      *       @OA\Property(property="user", type="object", ref="#/components/schemas/User"),
-     *       @OA\Property(property="token", type="string", example="Bearer token"),
+     *       @OA\Property(property="token", type="string", example="Bearer token")
      *     )
      *   ),
      *   @OA\Response(
      *     response=401,
      *     description="Unauthorized",
      *     @OA\JsonContent(
-     *       @OA\Property(property="message", type="string", example="Unauthorized"),
+     *       @OA\Property(property="message", type="string", example="Unauthorized")
      *     )
      *   ),
      *   @OA\Response(
@@ -108,18 +109,17 @@ class AuthController extends Controller
      *     description="Validation Error",
      *     @OA\JsonContent(
      *       @OA\Property(property="message", type="string", example="Validation Error"),
-     *       @OA\Property(property="errors", type="object", example={"email": {"The email field is required."}}),
+     *       @OA\Property(property="errors", type="object", example={"email": {"The email field is required."}})
      *     )
      *   ),
-     *   
-     *  @OA\Response(
+     *   @OA\Response(
      *     response=500,
      *     description="Internal Server Error",
      *     @OA\JsonContent(
      *       @OA\Property(property="message", type="string", example="Server Error"),
-     *       @OA\Property(property="errors", type="object", example={"errors": {"Internal server error!"}}),
+     *       @OA\Property(property="errors", type="object", example={"errors": {"Internal server error!"}})
      *     )
-     *   ),
+     *   )
      * )
      *
      * @param LoginRequest $request
@@ -159,7 +159,8 @@ class AuthController extends Controller
      *     required=true,
      *     description="User registration",
      *     @OA\JsonContent(
-     *       required={"first_name","last_name","email","password", "password_confirmation"},
+     *       required={"identification","first_name","last_name","email","password", "password_confirmation"},
+     *       @OA\Property(property="identification", type="string", example="11440895789"),
      *       @OA\Property(property="first_name", type="string", example="John"),
      *       @OA\Property(property="last_name", type="string", example="Doe"),
      *       @OA\Property(property="email", type="string", format="email", example="user@biblionacho.com"),

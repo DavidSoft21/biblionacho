@@ -3,11 +3,16 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use Cmixin\BusinessDay;
+use Illuminate\Support\Carbon;
 use Illuminate\Http\Request;
 use App\Http\Requests\Api\LendBooks\LendBookCreateRequest;
 use App\Http\Requests\Api\LendBooks\LendBookUpdateRequest;
 use Illuminate\Http\JsonResponse;
 use App\Models\LendBook;
+use App\Models\User;
+use Exception;
+use Illuminate\Support\Facades\Log;
 
 class LendBookController extends Controller
 {
@@ -15,7 +20,14 @@ class LendBookController extends Controller
     /**
      * @OA\Schema(
      *     schema="LendBook",
-     *     required={"isbn", "observations", "deadline", "returned", "user_id", "book_id"},
+     *     required={"identification ","isbn", "observations", "deadline", "returned", "user_id", "book_id"},
+     *    @OA\Property(
+     *       property="identification",
+     *       type="string",
+     *       description="identification of user",
+     *       example="123456789"
+     *  ),
+     * 
      *     @OA\Property(
      *         property="isbn",
      *         type="string",
@@ -108,6 +120,58 @@ class LendBookController extends Controller
         }
     }
 
+
+    /**
+     * Calculates the number of weekdays, weekends, and holidays between a given date range in Colombia, ensuring the start date is after the current date.
+     *
+     * @param Carbon\Carbon $startDate The start date of the range (inclusive). Must be after the current date.
+     * @param Carbon\Carbon $endDate The end date of the range (inclusive).
+     * @return array An array containing the following keys:
+     *   - totalDays: The total number of days between the start and end date (inclusive).
+     *   - weekendDays: The number of Saturdays and Sundays within the date range.
+     *   - holidayCount: The number of holidays in Colombia within the date range.
+     *   - workingDays: The number of weekdays (excluding weekends and holidays) within the date range.
+     *
+     * @throws Exception If the start date is after the end date or before the current date.
+     */
+    public function countHolidaysColombia(Carbon $startDate, Carbon $endDate): array
+    {
+        $now = Carbon::now()->format('d-m-Y');
+        $startDate = $startDate->startOfDay()->format('d-m-Y');
+        $endDate = $endDate->endOfDay()->format('d-m-Y');
+
+        // Log::info(' Start Date: => ' . $startDate . " end Day => " . $endDate . " now => " . $now);
+        // dd('hola');
+
+        if (Carbon::parse($startDate)->gt(Carbon::parse($endDate))) {
+            throw new Exception('Start date cannot be after end date.');
+        }
+
+        if (Carbon::parse($startDate)->lt(Carbon::parse($now))) {
+            throw new Exception('Start date must be on or after the current date.');
+        }
+
+        $businessDay = new BusinessDay();
+        $totalDays = Carbon::parse($endDate)->diffInDays(Carbon::parse($startDate)) + 1;
+
+        $weekendDays = Carbon::parse($startDate)->diffInDaysFiltered(function (Carbon $date) {
+            return $date->isWeekend();
+        }, $endDate);
+
+        $holidays = $businessDay->getHolidays($startDate, $endDate, 'Colombia');
+        $holidayCount = count($holidays());
+
+        $nonWorkingDays = $weekendDays + $holidayCount;
+        $workingDays = $totalDays - $nonWorkingDays;
+
+        return [
+            'totalDays' => $totalDays,
+            'weekendDays' => $weekendDays,
+            'holidayCount' => $holidayCount,
+            'workingDays' => $workingDays,
+        ];
+    }
+
     /**
      * @OA\Post(
      *   path="/lendbooks/store",
@@ -130,10 +194,10 @@ class LendBookController extends Controller
      *     required=true,
      *     description="Lend Book data",
      *     @OA\JsonContent(
-     *       required={"isbn", "observations", "deadline", "returned", "user_id", "book_id"},
+     *       required={"identification","isbn", "observations", "returned", "user_id", "book_id"},
+     *      @OA\Property(property="identification", type="string", example="123456789"),
      *       @OA\Property(property="isbn", type="string", example="yI47e2b87c"),
      *       @OA\Property(property="observations", type="string", example=""),
-     *       @OA\Property(property="deadline", type="date", example="10-05-2024"),
      *       @OA\Property(property="returned", type="boolean",  example="false"),
      *       @OA\Property(property="user_id", type="integer",  example="1"),
      *       @OA\Property(property="book_id", type="integer",  example="1"),
@@ -172,12 +236,43 @@ class LendBookController extends Controller
     public function store(LendBookCreateRequest $request): JsonResponse
     {
         try {
+
             $validatedData = $request->validated();
+            $today = Carbon::now()->startOfDay();
+            $user = User::find($validatedData['user_id']);
+            $deadline = '';
+
+            switch (true) {
+                case $user->hasRole('admin'):
+                    $deadline = $today->copy()->addDays(20);
+                    break;
+                case $user->hasRole('employee'):
+                    $deadline = $today->copy()->addDays(8);
+                    break;
+                case $user->hasRole('affiliate'):
+                    $deadline = $today->copy()->addDays(10);
+                    break;
+                case $user->hasRole('guest'):
+                    $deadline = $today->copy()->addDays(7);
+                    break;
+                default:
+                    $deadline = $today->copy()->addDays(7);
+                    break;
+            }
+
+            $holidays = $this->countHolidaysColombia($today, $deadline);
+            $nonWorkingDays = $holidays['holidayCount'] + $holidays['weekendDays'] - 1;
+            $deadline->addDays($nonWorkingDays);
+
+            while ($deadline->isWeekend()) {
+                $deadline->addDay();
+            }
 
             $lendbook = LendBook::create([
+                'identification' => $validatedData['identification'],
                 'isbn' => $validatedData['isbn'],
                 'observations' => $validatedData['observations'],
-                'deadline' => $validatedData['deadline'],
+                'deadline' => $deadline->format('Y-m-d'),
                 'returned' => $validatedData['returned'],
                 'user_id' => $validatedData['user_id'],
                 'book_id' => $validatedData['book_id']
@@ -191,6 +286,10 @@ class LendBookController extends Controller
             return response()->json([
                 'message' => 'Validation Error',
                 'errors' => $e->errors()
+            ], 422);
+        } catch (\Exception $e) {
+            return response()->json([
+                'message' => $e->getMessage()
             ], 422);
         }
     }
@@ -317,10 +416,10 @@ class LendBookController extends Controller
      *     required=true,
      *     description="Lend of Book update",
      *     @OA\JsonContent(
-     *       required={"isbn", "observations", "deadline", "returned", "user_id", "book_id"},
+     *       required={"identification" ,"isbn", "observations", "returned", "user_id", "book_id"},
+     *       @OA\Property(property="identification", type="string", example="123456789"),
      *       @OA\Property(property="isbn", type="string", example="yI47e2b87c"),
      *       @OA\Property(property="observations", type="string", example=""),
-     *       @OA\Property(property="deadline", type="date", example="10-05-2024"),
      *       @OA\Property(property="returned", type="boolean",  example="false"),
      *       @OA\Property(property="user_id", type="integer",  example="1"),
      *       @OA\Property(property="book_id", type="integer",  example="1"),
@@ -374,6 +473,7 @@ class LendBookController extends Controller
             $lendbook = LendBook::find($id);
 
             $lendbook->update([
+                'identification' => $validatedData['identification'],
                 'isbn' => $validatedData['isbn'],
                 'observations' => $validatedData['observations'],
                 'deadline' => $validatedData['deadline'],
