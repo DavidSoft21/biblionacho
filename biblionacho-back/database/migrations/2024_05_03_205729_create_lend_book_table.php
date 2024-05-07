@@ -13,6 +13,7 @@ return new class extends Migration
     {
         Schema::create('lend_book', function (Blueprint $table) {
             $table->id();
+            $table->string('identification',10);
             $table->string('isbn',10);
             $table->text('observations',100)->nullable();
             $table->date('deadline');

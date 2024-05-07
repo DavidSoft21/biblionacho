@@ -24,6 +24,7 @@ class UserUpdateRequest extends FormRequest
         $passwordRules = $this->getMethod() == 'POST' ? 'required|string|min:8|max:100|regex:/^\S*$/|confirmed' : 'nullable|string|min:8|max:100|regex:/^\S*$/|confirmed';
 
         return [
+            'identification' => 'required|string|max:20|unique:users,identification,' . $this->user()->id,
             'first_name' => 'required|string|max:100',
             'last_name' => 'required|string|max:100',
             'email' => 'required|email|max:100|unique:users,email,' . $this->user()->id,

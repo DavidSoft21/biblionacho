@@ -18,6 +18,7 @@ class LendBook extends Model
      * @var array<int, string>
      */
     protected $fillable = [
+        'identification',
         'isbn',
         'observations',
         'deadline',
@@ -25,5 +26,4 @@ class LendBook extends Model
         'user_id',
         'book_id'
     ];
-
 }
