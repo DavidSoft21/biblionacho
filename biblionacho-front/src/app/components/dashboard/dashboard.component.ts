@@ -13,7 +13,8 @@ export class DashboardComponent {
 
   registerForm: FormGroup;
   errors: any;
-
+  username: any;
+  email: any;
 
   constructor(
     private authService: AuthService,
@@ -28,7 +29,15 @@ export class DashboardComponent {
       password: [''],
       password_confirmation: ['']
     });
+    let userString = localStorage.getItem('user');
 
+  if (userString !== null) {
+      let user = JSON.parse(userString);
+    let firstName = user.first_name;
+    let email = user.email;
+    this.username = firstName 
+    this.email = user.email;
+  } 
 
   } 
   

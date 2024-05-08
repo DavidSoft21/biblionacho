@@ -11,17 +11,21 @@ import { Router } from '@angular/router';
   styleUrls: ['./menu.component.css']
 })
 export class MenuComponent {
-  menuItems = ['User', 'Book', 'Lend-Book'];
+  menuItems = ['User', 'Book', 'Lend-Book', 'Lendbook-store', 'Lendbook-Show',];
   errors: any;
   user: any;
+  show: any;
 
   constructor(
     private authService: AuthService,
     private router: Router,
     private tokenservice: TokenService
-  ) { }
+  ) { 
+    localStorage.getItem('access_token') ? this.show = true : this.show = false
+  }
 
   logout(): void {
+    this.show = !this.show ;
     this.authService.logout().subscribe(
       response => this.handleResponse(response),
       errors => this.handleErrors(errors),

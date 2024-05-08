@@ -1,0 +1,39 @@
+<h1 class="text-center">Lend Book</h1>
+<div class="card text-center">
+  <div class="d-flex justify-content-end d-block">
+    <a routerLink="/lendbook-users" class="btn btn-outline-secondary btn-md"
+      >show users</a
+    >
+    <a class="btn btn-primary btn-md" routerLink="/lendbook-store">new</a>
+  </div>
+  <div class="card-header">Lend Books</div>
+
+  <div class="card-body">
+    <div class="table-responsive">
+      <table class="table">
+        <thead>
+          <tr>
+            <th scope="col">ID LEND</th>
+            <th scope="col">FIRST NAME</th>
+            <th scope="col">LASTNAME</th>
+            <th scope="col">EMAIL</th>
+            <th scope="col">DEADLINE</th>
+            <th scope="col">RETURNED</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr
+            *ngFor="let lendbook of lendbooks.lendbookUsers; let iControl = index"
+          >
+            <th scope="row">{{ lendbook.id }}</th>
+            <td>{{ lendbook.first_name }}</td>
+            <td>{{ lendbook.last_name }}</td>
+            <td>{{ lendbook.email }}</td>
+            <td>{{ lendbook.deadline }}</td>
+            <td>{{ lendbook.returned }}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

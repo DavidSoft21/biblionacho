@@ -51,7 +51,7 @@ export class StoreBookComponent implements OnInit {
   }
 
   private handleErrors(errors: any): void {
-    alert(errors.error.message)
+    alert('Unauthorizated or Was Ocurred An Error Internal');
     this.errors = errors.error.errors;
   }
 

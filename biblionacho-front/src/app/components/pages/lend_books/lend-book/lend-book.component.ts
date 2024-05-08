@@ -57,7 +57,7 @@ export class LendBookComponent {
   }
 
   private handleErrors(errors: any): void {
-    alert('Error Internal Server');
+    alert('Unauthorizated or Was Ocurred An Error Internal');
     this.errors = errors.error.errors;
     this.router.navigateByUrl('/lend-book');
   }

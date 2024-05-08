@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\DB;
 use Cmixin\BusinessDay;
 use Illuminate\Support\Carbon;
 use Illuminate\Http\Request;
@@ -121,6 +122,30 @@ class LendBookController extends Controller
     }
 
 
+    public function showLendBookUser()
+    {
+
+
+
+        try {
+            $usersWithUnreturnedBooks = DB::table('users')
+                ->join('lend_book', 'users.id', '=', 'lend_book.user_id')
+                ->select('users.first_name','users.last_name', 'users.email', 'lend_book.id','lend_book.returned', 'lend_book.deadline')->where('lend_book.returned', '<>', true)
+                ->get();
+
+            return response()->json([
+                'message' => 'Ok 200',
+                'lendbookUsers' => $usersWithUnreturnedBooks
+            ], 200);
+        } catch (\Exception $e) {
+            return response()->json([
+                'message' => 'Server Error',
+                'errors' => ['errors' => 'Internal server error!']
+            ], 500);
+        }
+    }
+
+
     /**
      * Calculates the number of weekdays, weekends, and holidays between a given date range in Colombia, ensuring the start date is after the current date.
      *
@@ -140,8 +165,6 @@ class LendBookController extends Controller
         $startDate = $startDate->startOfDay()->format('d-m-Y');
         $endDate = $endDate->endOfDay()->format('d-m-Y');
 
-        // Log::info(' Start Date: => ' . $startDate . " end Day => " . $endDate . " now => " . $now);
-        // dd('hola');
 
         if (Carbon::parse($startDate)->gt(Carbon::parse($endDate))) {
             throw new Exception('Start date cannot be after end date.');
@@ -233,30 +256,47 @@ class LendBookController extends Controller
      * @param LendBookCreateRequest $request
      * @return JsonResponse
      */
-    public function store(LendBookCreateRequest $request): JsonResponse
+    public function store(LendBookCreateRequest $request)
     {
+
+
         try {
 
             $validatedData = $request->validated();
             $today = Carbon::now()->startOfDay();
             $user = User::find($validatedData['user_id']);
+            $userHasLend = LendBook::where('identification', $user->identification)->where('returned', false)->get();
             $deadline = '';
+
+            if (!$user->hasRole('admin') && count($userHasLend) > 0) {
+                return response()->json([
+                    'message' => '"El usuario con identificación ' . $request->identification . ' ya tiene un libro prestado por lo cual no se le 
+                    puede realizar otro préstamo',
+                ], 400);
+            }
 
             switch (true) {
                 case $user->hasRole('admin'):
+                    $tipoUsuario = 'admin';
                     $deadline = $today->copy()->addDays(20);
                     break;
                 case $user->hasRole('employee'):
+                    $tipoUsuario = 'employee';
                     $deadline = $today->copy()->addDays(8);
                     break;
                 case $user->hasRole('affiliate'):
+                    $tipoUsuario = 'affiliate';
                     $deadline = $today->copy()->addDays(10);
                     break;
                 case $user->hasRole('guest'):
+                    $tipoUsuario = 'guest';
                     $deadline = $today->copy()->addDays(7);
                     break;
                 default:
-                    $deadline = $today->copy()->addDays(7);
+                    $tipoUsuario = 'no permitido';
+                    return response()->json([
+                        "mensaje" => "Tipo de usuario no permitido en la biblioteca.",
+                    ], 400);
                     break;
             }
 
@@ -271,16 +311,21 @@ class LendBookController extends Controller
             $lendbook = LendBook::create([
                 'identification' => $validatedData['identification'],
                 'isbn' => $validatedData['isbn'],
-                'observations' => $validatedData['observations'],
-                'deadline' => $deadline->format('Y-m-d'),
-                'returned' => $validatedData['returned'],
+                'observations' => isset($validatedData['observations']) ? 'Tipo usuario: ' . $tipoUsuario . ' ' . $validatedData['observations'] : 'Tipo usuario: ' . $tipoUsuario,
+                'deadline' => isset($validatedData['deadline']) ? $validatedData['deadline'] : $deadline->format('d-m-Y'),
+                'returned' => isset($validatedData['returned']) ? $validatedData['returned'] : false,
                 'user_id' => $validatedData['user_id'],
                 'book_id' => $validatedData['book_id']
             ]);
 
             return response()->json([
-                'message' => 'Successfully registered',
-                'lendbook' => $lendbook
+                // 'message' => 'Successfully registered',
+                'response' => [
+                    "id" => $lendbook->id,
+                    "fechaMaximaDevolucion" =>  $deadline->format('d-M-Y'),
+                    "tipoUsuario" => $tipoUsuario
+                ],
+                // 'lendbook' => $lendbook
             ], 200);
         } catch (\Illuminate\Validation\ValidationException $e) {
             return response()->json([
@@ -367,8 +412,17 @@ class LendBookController extends Controller
             $lendbook = LendBook::findOrFail($id);
 
             return response()->json([
-                'message' => 'Ok 200',
-                'lendbook' => $lendbook
+                // 'message' => 'Ok 200',
+                'response' => [
+                    'id' => $lendbook->id,
+                    'identification' => $lendbook->identification,
+                    'isbn' => $lendbook->isbn,
+                    // 'observations' => $lendbook->observations,
+                    'deadline' => Carbon::parse($lendbook->deadline)->format('d-M-Y'),
+                    // 'returned' => $lendbook->returned,
+                    // 'user_id' => $lendbook->user_id,
+                    // 'book_id' => $lendbook->book_id
+                ]
             ], 200);
         } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $e) {
             return response()->json([
@@ -475,9 +529,9 @@ class LendBookController extends Controller
             $lendbook->update([
                 'identification' => $validatedData['identification'],
                 'isbn' => $validatedData['isbn'],
-                'observations' => $validatedData['observations'],
-                'deadline' => $validatedData['deadline'],
-                'returned' => $validatedData['returned'],
+                'observations' => isset($validatedData['observations']) ? $validatedData['observations'] : '',
+                'deadline' => isset($validatedData['deadline']) ? $validatedData['deadline'] : $lendbook->deadline,
+                'returned' => isset($validatedData['returned']) ? $validatedData['returned'] : $lendbook->returned,
                 'user_id' => $validatedData['user_id'],
                 'book_id' => $validatedData['book_id']
             ]);
