@@ -1,51 +1,51 @@
 import { Component } from '@angular/core';
-import { FormGroup, FormBuilder } from '@angular/forms';
 import { Router } from '@angular/router';
-import { Book } from 'src/app/models/book.model';
-import { BookService } from 'src/app/services/books/book.service';
-import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { LendBookService } from 'src/app/services/lend-books/lend-book.service';
+import { FormGroup, FormBuilder } from '@angular/forms';
+import { LendBook } from 'src/app/models/lendbook.model';
+
 
 @Component({
-  selector: 'app-book',
-  templateUrl: './book.component.html',
-  styleUrls: ['./book.component.css']
+  selector: 'app-lendbook-user',
+  templateUrl: './lendbook-user.component.html',
+  styleUrls: ['./lendbook-user.component.css']
 })
-export class BookComponent {
+export class LendbookUserComponent {
 
- 
-  books: any;
+  lendbooks: any;
   errors: any;
 
   constructor(
-    private bookService: BookService,
+    private lendBookService: LendBookService,
     private router: Router,
     private fb: FormBuilder,
-    private modalService: NgbModal
+
   ) {
 
 
   } 
 
   ngOnInit(): void {
-    this.bookService.index().subscribe(
-      response => { this.books = response; }, 
+    this.lendBookService.showLendBookUsers().subscribe(
+      response => { this.lendbooks = response; }, 
       errors => this.handleErrors(errors),
     );
   }
 
-  deleteBook(id: any, iControl: any): void {
+
+  deleteLendBook(id: any, iControl: any): void {
     
-    let userResponse = confirm("¿Desea eliminar libro?");
+    let userResponse = confirm("¿Desea eliminar el registro?");
     if (userResponse) {
       this.cleanError();
       console.log(id);
       
-      this.bookService.delete(id).subscribe(
+      this.lendBookService.delete(id).subscribe(
         response => this.handleResponse(response),
         errors => this.handleErrors(errors),
       );
     } else {
-      this.router.navigateByUrl('/book');
+      this.router.navigateByUrl('/lend-book');
     }
 
   }
@@ -58,11 +58,10 @@ export class BookComponent {
   private handleErrors(errors: any): void {
     alert('Unauthorizated or Was Ocurred An Error Internal');
     this.errors = errors.error.errors;
-    this.router.navigateByUrl('/book');
+    this.router.navigateByUrl('/lend-book');
   }
 
   private cleanError(): void {
     this.errors = null;
   }
-
 }

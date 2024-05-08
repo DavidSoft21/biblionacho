@@ -1,6 +1,11 @@
 <h1 class="text-center">Lend Book</h1>
 <div class="card text-center">
-  <a class="btn btn-primary btn-sm" routerLink="/lendbook-store">new</a>
+  <div class="d-flex justify-content-end d-block">
+    <a routerLink="/lendbook-users" class="btn btn-outline-secondary btn-md"
+      >show users</a
+    >
+    <a class="btn btn-primary btn-md" routerLink="/lendbook-store">new</a>
+  </div>
   <div class="card-header">Lend Books</div>
 
   <div class="card-body">
@@ -17,7 +22,9 @@
           </tr>
         </thead>
         <tbody>
-          <tr *ngFor="let lendbook of lendbooks.lendbooks; let iControl = index">
+          <tr
+            *ngFor="let lendbook of lendbooks.lendbooks; let iControl = index"
+          >
             <th scope="row">{{ lendbook.id }}</th>
             <td>{{ lendbook.identification }}</td>
             <td>{{ lendbook.isbn }}</td>

@@ -27,11 +27,11 @@ export class LendbookStoreComponent {
   
     this.createForm = this.fb.group({
       isbn : [''],
-      returned: [''],
-      observations: [''],
+      // returned: [''],
+      // observations: [''],
       user_id : [''],
       book_id :[''],
-      deadline: [''],
+      // deadline: [''],
       identification: [''],
 
     });
@@ -42,11 +42,16 @@ export class LendbookStoreComponent {
   }
 
   private handleResponse(response: any): void {
-    alert(response.message)
+    // response.message ? 'undefined' : response.message = 'Lend Book created successfully!';
+    response.message ? 'undefined' : response =  alert(`
+    id:  ${response.response.id},
+    fechaMaximaDevolucion: ${response.response.fechaMaximaDevolucion},
+    tipoUsuario:  ${response.response.tipoUsuario}`);
     this.router.navigateByUrl('/lend-book');
   }
 
   private handleErrors(errors: any): void {
+    errors.error.message ? 'undefined' : errors.error.message = 'An error has occurred!';
     alert(errors.error.message)
     this.errors = errors.error.errors;
   }

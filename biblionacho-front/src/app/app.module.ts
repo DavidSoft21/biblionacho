@@ -23,6 +23,7 @@ import { UserEditComponent } from './components/pages/users/user-edit/user-edit.
 import { LendbookEditComponent } from './components/pages/lend_books/lendbook-edit/lendbook-edit.component';
 import { LendbookStoreComponent } from './components/pages/lend_books/lendbook-store/lendbook-store.component';
 import { LendbookShowComponent } from './components/pages/lend_books/lendbook-show/lendbook-show.component';
+import { LendbookUserComponent } from './components/pages/lend_books/lendbook-user/lendbook-user.component';
 
 
 @NgModule({
@@ -45,7 +46,8 @@ import { LendbookShowComponent } from './components/pages/lend_books/lendbook-sh
     UserEditComponent,
     LendbookEditComponent,
     LendbookStoreComponent,
-    LendbookShowComponent
+    LendbookShowComponent,
+    LendbookUserComponent
   ],
   imports: [
     BrowserModule,

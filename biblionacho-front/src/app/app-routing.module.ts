@@ -13,6 +13,7 @@ import { PageNotFoundComponent } from './components/pages/page-not-found/page-no
 import { LendbookStoreComponent } from './components/pages/lend_books/lendbook-store/lendbook-store.component';
 import { LendbookEditComponent } from './components/pages/lend_books/lendbook-edit/lendbook-edit.component';
 import { LendbookShowComponent } from './components/pages/lend_books/lendbook-show/lendbook-show.component';
+import { LendbookUserComponent } from './components/pages/lend_books/lendbook-user/lendbook-user.component';
 import { isUserAuthenticatedGuard } from './guards/auth.guard';
 import { isGuestGuard } from './guards/auth.guard';
 
@@ -25,9 +26,10 @@ const routes: Routes = [
   { path: 'edit-book/:id', component: EditBookComponent, canActivate: [isUserAuthenticatedGuard] },
   { path: 'store-book', component: StoreBookComponent, canActivate: [isUserAuthenticatedGuard] },
   { path: 'lend-book', component: LendBookComponent, canActivate: [isUserAuthenticatedGuard] },
+  { path: 'lendbook-users', component: LendbookUserComponent, canActivate: [isUserAuthenticatedGuard] },
   { path: 'lendbook-store', component: LendbookStoreComponent, canActivate: [isUserAuthenticatedGuard] },
   { path: 'lendbook-edit/:id', component: LendbookEditComponent, canActivate: [isUserAuthenticatedGuard] },
-  { path: 'lendbook-show/:id', component: LendbookShowComponent, canActivate: [isUserAuthenticatedGuard] },
+  { path: 'lendbook-show', component: LendbookShowComponent },
   { path: '', redirectTo: '/login', pathMatch: 'full' },
   { path: '**', component: PageNotFoundComponent }
 ];

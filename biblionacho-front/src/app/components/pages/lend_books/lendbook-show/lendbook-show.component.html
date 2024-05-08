@@ -1,1 +1,48 @@
-<p>lendbook-show works!</p>
+<h1 class="text-center">Show Lend Book</h1>
+<div class="card text-center">
+  <div class="card-header">Show Lend Books</div>
+  <!-- Errors -->
+  <div *ngIf="errors?.id" class="alert alert-danger" role="alert">
+    {{ errors.id }}
+  </div>
+  <!-- Edit Book Form -->
+  <form [formGroup]="showForm" (ngSubmit)="showBook()">
+    <!-- Input iSBN -->
+    <div class="mb-3">
+      <label for="inputIsbn" class="form-label">ID</label>
+      <input
+        type="number"
+        class="form-control"
+        id="inputId"
+        formControlName="id"
+      />
+    </div>
+
+    <button type="submit" class="btn btn-lg w-100 mt-1 mb-4 btn-primary">
+      Update
+    </button>
+  </form>
+
+  <div class="card-body" *ngIf="data">
+    <div class="table-responsive">
+      <table class="table">
+        <thead>
+          <tr>
+            <th scope="col">ID</th>
+            <th scope="col">IDENTIFICACION</th>
+            <th scope="col">ISBN</th>
+            <th scope="col">DEADLINE</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <th scope="row">{{ data.id }}</th>
+            <td>{{ data.identification }}</td>
+            <td>{{ data.isbn }}</td>
+            <td>{{ data.deadline }}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

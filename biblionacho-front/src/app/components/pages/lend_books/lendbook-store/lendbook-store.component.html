@@ -9,11 +9,11 @@
         </div>
 
         <div
-          *ngIf="errors?.observations"
+          *ngIf="errors?.user_id"
           class="alert alert-danger"
           role="alert"
         >
-          {{ errors.title }}
+          {{ errors.user_id }}
         </div>
 
         <div
@@ -21,20 +21,20 @@
           class="alert alert-danger"
           role="alert"
         >
-          {{ errors.author }}
+          {{ errors.identification }}
         </div>
 
-        <div *ngIf="errors?.deadline" class="alert alert-danger" role="alert">
-          {{ errors.pages }}
+        <div *ngIf="errors?.book_id" class="alert alert-danger" role="alert">
+          {{ errors.book_id }}
         </div>
 
         <div *ngIf="errors?.message" class="alert alert-danger" role="alert">
-          {{ errors.message }}
+          {{ errors }}
         </div>
 
         <!-- Store Lend of Book Form -->
         <form [formGroup]="createForm" (ngSubmit)="createLendBook()">
-          <!-- Input IDENTIFICATION -->
+          <!-- Input Identitication -->
           <div class="mb-3">
             <label for="inputIdentification" class="form-label"
               >Identification</label
@@ -44,7 +44,6 @@
               class="form-control"
               id="inputIdentification"
               formControlName="identification"
-              value="example 144048955"
             />
           </div>
 
@@ -56,12 +55,11 @@
               class="form-control"
               id="inputIsbn"
               formControlName="isbn"
-              value="example Ezx548TYl5"
             />
           </div>
 
           <!-- Input Observations -->
-          <div class="mb-3">
+          <!-- <div class="mb-3">
             <label for="inputObservations" class="form-label"
               >Observations</label
             >
@@ -70,9 +68,8 @@
               class="form-control"
               id="inputObservations"
               formControlName="observations"
-              value="example Observations"
             />
-          </div>
+          </div> -->
 
           <!-- Input Deadline -->
           <!-- <div class="mb-3">
@@ -86,7 +83,7 @@
           </div> -->
 
           <!-- Input Returned -->
-          <div class="mb-3">
+          <!-- <div class="mb-3">
             <label for="inputReturned" class="form-label disabled"
               >Returned</label
             >
@@ -95,15 +92,18 @@
               class="form-check-input"
               id="inputReturned"
               formControlName="returned"
-              value="false"
             />
-          </div>
+          </div> -->
 
           <!-- Input user id -->
           <div class="mb-3">
             <label for="inputUserId" class="form-label">Usuario</label>
-            <input type="string" class="form-control" id="inputUserId"
-            formControlName="user_id" value="example id user 1" />
+            <input
+              type="string"
+              class="form-control"
+              id="inputUserId"
+              formControlName="user_id"
+            />
           </div>
 
           <!-- Input book id -->
@@ -114,7 +114,6 @@
               class="form-control"
               id="inputBookId"
               formControlName="book_id"
-              value="example id 10"
             />
           </div>
 

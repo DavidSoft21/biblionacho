@@ -21,6 +21,10 @@ export class LendBookService {
     return this.http.get(`${this.API_URL}/lendbooks/index`);
   }
 
+  showLendBookUsers() {
+    return this.http.get(`${this.API_URL}/lendbooks/showLendBookUsers`);
+  }
+
   delete(id:any) {
 
     return this.http.delete(`${this.API_URL}/lendbooks/destroy/`+id);
